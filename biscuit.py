@@ -1,1 +1,20 @@
+import webapp2
 
+jinja_current_dir = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
+class loginPage(webapp2.RequestHandler):
+    def get(self):
+        start_template = jinja_current_dir.get_template("templates/biscuit.html")
+        self.response.write(start_template.render())
+class questionPage
+    def post():
+        start_template = jinja_current_dir.get_template("templates/question.html")
+        self.response.write(start_template.render())
+
+app = webapp2.WSGIApplication([
+    ('/login', loginPage ),
+    ('/question', questionPage)
+], debug=True)
