@@ -1,4 +1,8 @@
 import webapp2
+import jinja2
+import os
+from google.appengine.api import users
+from google.appengine.ext import ndb
 
 
 jinja_current_dir = jinja2.Environment(
@@ -24,17 +28,17 @@ class loginPage(webapp2.RequestHandler):
     def post(self):
         user = users.get_current_user()
         if user:
-        biscuit_user = BiscuitUser(
-            first_name=self.request.get('first_name'),
-            age = int(self.request.get('age')),
-            breed= self.request.get('breed'),
-            friendliness= self.request.get('friendliness'),
-            email = user.nickname()
+            biscuit_user = BiscuitUser(
+                first_name=self.request.get('first_name'),
+                age = int(self.request.get('age')),
+                breed= self.request.get('breed'),
+                friendliness= self.request.get('friendliness'),
+                email = user.nickname()
         )
         biscuit_user.put()
         start_template = jinja_current_dir.get_template("templates/biscuit.html")
         self.response.write(start_template.render(saved_dict))
-class questionPage
+class questionPage(webapp2.RequestHandler):
     def post():
         start_template = jinja_current_dir.get_template("templates/question.html")
         self.response.write(start_template.render())
@@ -143,4 +147,3 @@ app = webapp2.WSGIApplication([
 #         ('/all', allmemes)
 #     ],
 #     debug = True
-)
