@@ -6,9 +6,11 @@ from google.appengine.ext import ndb
 
 class BiscuitUser(ndb.Model):
     first_name = ndb.StringProperty()
-    age = ndb.IntegerProperty()
+    age = ndb.StringProperty()
     breed = ndb.StringProperty()
-    good_with = ndb.StringProperty()
+    size = ndb.StringProperty()
+    gender = ndb.StringProperty()
+    haveKids = ndb.StringProperty()
     email = ndb.StringProperty()
 
 jinja_current_dir = jinja2.Environment(
@@ -35,9 +37,11 @@ class loginPage(webapp2.RequestHandler):
         if user:
             biscuit_user = BiscuitUser(
                 first_name=self.request.get('first_name'),
-                age = int(self.request.get('age')),
+                age = self.request.get('age'),
                 breed= self.request.get('breed'),
-                good_with= self.request.get('good with...'),
+                size= self.request.get('size'),
+                gender = self.request.get('Gender'),
+                haveKids = self.request.get('kids'),
                 email = user.nickname()
         )
         biscuit_user.put()
