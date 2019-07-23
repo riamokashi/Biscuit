@@ -1,5 +1,5 @@
 import webapp2
-from //api.petfinder.com/v2/types/{type}/breeds
+from //api.petfinder.com/v2/types/{type}/breeds import
 
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -19,3 +19,8 @@ app = webapp2.WSGIApplication([
     ('/login', loginPage ),
     ('/question', questionPage)
 ], debug=True)
+
+
+        top_line = self.request.get("top-line")
+        bottom_line = self.request.get("bottom-line")
+        meme_url = self.request.get("template")
