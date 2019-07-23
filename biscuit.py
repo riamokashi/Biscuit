@@ -43,6 +43,7 @@ class loginPage(webapp2.RequestHandler):
         biscuit_user.put()
         start_template = jinja_current_dir.get_template("templates/biscuit.html")
         self.response.write(start_template.render())
+        
 class questionPage(webapp2.RequestHandler):
     def post():
         start_template = jinja_current_dir.get_template("templates/question.html")
