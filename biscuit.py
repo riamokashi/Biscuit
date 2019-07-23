@@ -23,7 +23,6 @@ class loginPage(webapp2.RequestHandler):
         if user:
             email_address = user.nickname()
             logout_url = users.create_logout_url('/')
-            logout_button = '<a href ="%s"> Log Out</a>' % logout_url
             existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
             if existing_user:
                 pass
