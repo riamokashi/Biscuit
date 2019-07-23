@@ -23,6 +23,13 @@ class loginPage(webapp2.RequestHandler):
             if existing_user:
                 pass
             else:
+
+                saved_dict = {
+                    "name":
+                    "breed":
+                    "age":
+                    "friendliness":
+                }
             #put this in HTML file -->
                 self.response.write('''You are a new user, please answer the survey questions
                     <form method= 'post' action='/'>
