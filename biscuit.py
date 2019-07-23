@@ -27,7 +27,10 @@ class loginPage(webapp2.RequestHandler):
             logout_url = users.create_logout_url('/')
             existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
             if existing_user:
-                pass
+                self.response.write("Welcome back " + email_address)
+            else:
+                survey_template = jinja_current_dir.get_template("survey.html")
+                self.response.write(survey_template.render())
         else:
             login_url = users.create_login_url('/')
             login_button = '<a href ="%s"> Sign In</a>' % login_url
@@ -45,17 +48,17 @@ class loginPage(webapp2.RequestHandler):
                 email = user.nickname()
         )
         biscuit_user.put()
-        start_template = jinja_current_dir.get_template("templates/biscuit.html")
+        start_template = jinja_current_dir.get_template("survey.html")
         self.response.write(start_template.render())
-        
-class questionPage(webapp2.RequestHandler):
-    def post():
-        start_template = jinja_current_dir.get_template("templates/question.html")
+
+class displayPage(webapp2.RequestHandler):
+    def post(self):
+        start_template = jinja_current_dir.get_template("question.html")
         self.response.write(start_template.render())
 
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
-    ('/question', questionPage)
+    ('/dogs', displayPage)
 ], debug=True)
 
 #meme generator for reference
