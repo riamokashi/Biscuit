@@ -52,9 +52,9 @@ class loginPage(webapp2.RequestHandler):
         self.response.write(start_template.render())
 
 class displayPage(webapp2.RequestHandler):
-    def post(self):
-        start_template = jinja_current_dir.get_template("question.html")
-        self.response.write(start_template.render())
+    def get(self):
+        display_template = jinja_current_dir.get_template("display.html")
+        self.response.write(display_template.render())
 
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
