@@ -1,4 +1,4 @@
-
+<!--
 <html>
   <head>
     <link rel = "stylesheet" href="biscuit.css">
@@ -23,11 +23,11 @@
     <meta charset="utf-8">
     <title>Welcome to Memegen</title>
     <!-- <link rel="stylesheet" href="/Users/cssi/Desktop/cssi-labs/python/labs/appengine/the.css"/> -->
-  </head>
+  <!-- </head>
   <body>
     <h1>Meme Generator</h1>
     <!-- <img height="100px" width="150px" src= {{line3}} alt=""> -->
-    <h2>Welcome to the best Meme Generator around town!!</h2>
+    <!-- <h2>Welcome to the best Meme Generator around town!!</h2>
     <form method="post" action="/result">
       {% for url in imgs%}
         <img height = 100px width = 100px src="{{url}}"/>
@@ -41,7 +41,47 @@
       <input type="submit" value="Go!"/>
     </form>
 
-    <a href="all">Check out all memes</a>
+    <a href="all">Check out all memes</a> -->
+
+  </body>
+</html>
+
+
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Biscuit! Tinder for Pets!</title>
+  </head>
+  <body>
+    <h1> You are a new user, please answer the questions below </h1>
+    <form method= 'post' action='/'>
+        <input type='text' name='first_name'>
+        <input type='text' name='age'>
+        <input type='text' name='breed'>
+        <input type='text' name='friendliness'>
+        <input type='submit'>
+            '''
+
+
+ </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Memegen Result</title>
+  </head>
+  <body>
+    <h1>Here is your Meme</h1>
+
+    {{top}}
+
+    <br>
+    <img height = 100px width = 100px src="{{url}}">
+    <br>
+    {{bottom}}
 
   </body>
 </html>
