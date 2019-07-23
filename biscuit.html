@@ -50,6 +50,11 @@
   </head>
   <body>
     <div class= "loginmessage">
+      {% if user_logged_in %}
+      <a href="{{logout_url}}">Log Out</a>
+      {% else %}
+      <!-- your login anchor -->
+      {% endif %}
     <h1> Hi! <br> </h1>
     <img src="https://pbs.twimg.com/media/DYVw-6LWAAAI3ob.jpg" alt="Doggo1">
     <h2>Answer These Questions <br> So We Can Help You Find The Perfect Pet </h2>
