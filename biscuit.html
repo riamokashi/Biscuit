@@ -1,8 +1,6 @@
 <!--
 <html>
   <head>
-    <link rel = "stylesheet" href="biscuit.css">
-    <title> Biscuit: Find The Perfect Pet </title>
   </head>
   <body>
 
@@ -47,20 +45,31 @@
 </html>
 
 
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Biscuit! Tinder for Pets!</title>
+    <link rel = "stylesheet" href="biscuit.css">
+    <title> Biscuit: Find The Perfect Pet </title>
   </head>
   <body>
-    <h1> You are a new user, please answer the questions below </h1>
+    <div class= "loginmessage">
+    <h1> Hi! <br> </h1>
+    <img src="https://pbs.twimg.com/media/DYVw-6LWAAAI3ob.jpg" alt="Doggo1">
+    <h2>Answer These Questions <br> So We Can Help You Find The Perfect Pet </h2>
     <form method= 'post' action='/'>
-        <input type='text' name='first_name'>
-        <input type='text' name='age'>
+        <label for 'name' id= "name">Dog's Name</label><br/>
+        <input name='name' id="name">
+        <br>
+        <label for 'age' id="age">Age</label><br/>
+        <input type='age' name='age'>
+        <br>
         <input type='text' name='breed'>
+        <br>
         <input type='text' name='friendliness'>
+        <br>
         <input type='submit'>
+    </form>
             '''
 
 
