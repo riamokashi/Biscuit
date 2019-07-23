@@ -1,5 +1,5 @@
 import webapp2
-from //api.petfinder.com/v2/types/{type}/breeds import
+
 
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
