@@ -6,11 +6,10 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: main.app
+  script: biscuit.app
 
 libraries:
 - name: webapp2
   version: latest
 - name: jinja2
   version: latest
-- name:
