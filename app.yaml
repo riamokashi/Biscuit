@@ -6,7 +6,7 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: main.app
+  script: biscuit.app
 
 libraries:
 - name: webapp2
