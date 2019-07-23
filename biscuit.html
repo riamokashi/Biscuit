@@ -41,13 +41,11 @@
 
     <a href="all">Check out all memes</a> -->
 
-<<<<<<< HEAD
-
+  </body>
 </html>
 
-=======
->>>>>>> fcd069b85546c141766c56e18a0279bf9d262036
 
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -56,16 +54,11 @@
   </head>
   <body>
     <div class= "loginmessage">
-      {% if user_logged_in %}
-      <a href="{{logout_url}}">Log Out</a>
-      {% else %}
-      <!-- your login anchor -->
-      {% endif %}
     <h1> Hi! <br> </h1>
     <img src="https://pbs.twimg.com/media/DYVw-6LWAAAI3ob.jpg" alt="Doggo1">
     <h2>Answer These Questions <br> So We Can Help You Find The Perfect Pet </h2>
     <form method= 'post' action='/'>
-        <label for 'name' id= "name">Dog's Name</label><br/>
+        <label for 'name' id= "name">Your Name</label><br/>
         <input name='name' id="name">
         <br>
         <label for 'age' id="age">Age</label><br/>
@@ -74,15 +67,41 @@
                     <option value = "young">Young</option>
                     <option value = "adult">Adult</option>
                     <option value = "senior">Senior</option>
+                    <option value = "noprefrence"> No Prefrence</option>
         </select>
         <br>
-        <br>
+        <label for 'breed' id= "breed">Breed</label><br/>
+        <select breed = "breed">
+          {% for breed in breeds %}
+            <option value = '{{breed}}'>{{breed}}</option>
+          {% endfor %}
+          <option value = 'no_prefrence'>{{breed}}</option>
         <input type='breed' name='breed'>
         <br>
-        <input type='text' name='friendliness'>
+        <label for 'size' id="size">Size</label><br/>
+        <select name = "size">
+                    <option value = "small">Small</option>
+                    <option value = "medium">Medium</option>
+                    <option value = "large">Large</option>
+                    <option value = "xl">XL</option>
+                    <option value = "no_prefrence">No Prefrence</option>
+        </select>
         <br>
->>>>>>> fcd069b85546c141766c56e18a0279bf9d262036
+        <label for 'gender' id="gender">Gender</label><br/>
+        <select name = "Gender">
+                    <option value = "male">Male</option>
+                    <option value = "female">Female</option>
+                    <option value = "no_prefrence">No Prefrence</option>
+        </select>
+        <br>
+        <label for= 'kids' id="kids">Do You Have Kids?</label><br/>
+            <input type="radio" name="yes" value="yes">Yes<br>
+            <input type="radio" name="no" value="no">No<br>
+        </form>
+        <br>
         <input type='submit'>
+    </form>
+            '''
 
 
  </body>
