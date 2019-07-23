@@ -14,6 +14,7 @@
         <label for 'name' id= "name">Your Name</label><br/>
         <input name='name' id="name">
         <br>
+        <br>
         <label for 'age' id="age">Age</label><br/>
         <select name = "age">
                     <option value = "puppy">Puppy</option>
@@ -23,13 +24,16 @@
                     <option value = "noprefrence"> No Prefrence</option>
         </select>
         <br>
+        <br>
+
         <label for 'breed' id= "breed">Breed</label><br/>
         <select breed = "breed">
           {% for breed in breeds %}
             <option value = '{{breed}}'>{{breed}}</option>
           {% endfor %}
           <option value = 'no_prefrence'>{{breed}}</option>
-        <input type='breed' name='breed'>
+        <input type='size' name='breed'>
+        <br>
         <br>
         <label for 'size' id="size">Size</label><br/>
         <select name = "size">
@@ -40,6 +44,7 @@
                     <option value = "no_prefrence">No Prefrence</option>
         </select>
         <br>
+        <br>
         <label for 'gender' id="gender">Gender</label><br/>
         <select name = "Gender">
                     <option value = "male">Male</option>
@@ -47,12 +52,13 @@
                     <option value = "no_prefrence">No Prefrence</option>
         </select>
         <br>
+        <br>
         <label for= 'kids' id="kids">Do You Have Kids?</label><br/>
-
             <input type="radio" name="template" value="yes">Yes<br>
             <input type="radio" name="template" value="no">No<br>
 
         </form>
+        <br>
         <br>
         <input type='submit'>
     </form>
