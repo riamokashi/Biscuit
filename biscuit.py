@@ -13,23 +13,26 @@ jinja_current_dir = jinja2.Environment(
 
 class loginPage(webapp2.RequestHandler):
     def get(self):
-        print("***********************************")
-        print("inside loginPage.get")
         user = users.get_current_user()
+        dict = {}
         if user:
-            print("***********************************")
-            print("got current user")
             email_address = user.nickname()
             logout_url = users.create_logout_url('/')
             logout_button = '<a href ="%s"> Log Out</a>' % logout_url
             existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
+            dict['user_logged_in'] = True
+            dict['logout_url'] = logout_url
             if existing_user:
                 self.response.write("Welcome to biscuit " + existing_user.email)
             else:
-                login_url = users.create_login_url('/')
-                login_button = '<a href ="%s"> Sign In</a>' % login_url
-                self.response.write("Please Log in<br>" + login_button)
-                
+                register_template = jinja_current_dir.get_template("templates/register.html")
+                self.response.write(start_template.render(dict))
+        else:
+            dict['user_logged_in'] = False
+            login_url = users.create_login_url('/')
+            login_button = '<a href ="%s"> Sign In</a>' % login_url
+            self.response.write("Please Log in<br>" + login_button)
+
     def post(self):
         user = users.get_current_user()
         if user:
@@ -42,7 +45,7 @@ class loginPage(webapp2.RequestHandler):
         )
         biscuit_user.put()
         start_template = jinja_current_dir.get_template("templates/biscuit.html")
-        self.response.write(start_template.render(saved_dict))
+        self.response.write(start_template.render())
 # class questionPage(webapp2.RequestHandler):
 #     def post():
 #         start_template = jinja_current_dir.get_template("templates/question.html")
