@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Memegen</title>
+    <!-- <link rel="stylesheet" href="/Users/cssi/Desktop/cssi-labs/python/labs/appengine/the.css"/> -->
+  </head>
+  <body>
+    <h1>Meme Generator</h1>
+    <!-- <img height="100px" width="150px" src= {{line3}} alt=""> -->
+    <h2>Welcome to the best Meme Generator around town!!</h2>
+    <form method="post" action="/result">
+      {% for url in imgs%}
+        <img height = 100px width = 100px src="{{url}}"/>
+        <input type="radio" name="template" value="{{url}}"/>
+      {% endfor %}
+      <br>
+
+      <input type="text" name="top-line" value="Your first line here"/>
+      <br>
+      <input type="text" name="bottom-line" value="Your second line here"/>
+      <input type="submit" value="Go!"/>
+    </form>
+
+    <a href="all">Check out all memes</a>
+
+  </body>
+</html>
