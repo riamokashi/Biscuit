@@ -4,11 +4,18 @@ import os
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
+class BiscuitUser(ndb.Model):
+    first_name = ndb.StringProperty()
+    age = ndb.IntegerProperty()
+    breed = ndb.StringProperty()
+    good_with = ndb.StringProperty()
+    email = ndb.StringProperty()
 
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
 
 class loginPage(webapp2.RequestHandler):
     def get(self):
@@ -17,14 +24,13 @@ class loginPage(webapp2.RequestHandler):
             email_address = user.nickname()
             logout_url = users.create_logout_url('/')
             logout_button = '<a href ="%s"> Log Out</a>' % logout_url
-
             existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
             if existing_user:
                 pass
-            else:
-                login_url = users.create_login_url('/')
-                login_button = '<a href ="%s"> Sign In</a>' % login_url
-            self.response.write("Please Log in<br>" + loginbutton)
+        else:
+            login_url = users.create_login_url('/')
+            login_button = '<a href ="%s"> Sign In</a>' % login_url
+            self.response.write("Please Log in<br>" + login_button)
     def post(self):
         user = users.get_current_user()
         if user:
@@ -32,7 +38,7 @@ class loginPage(webapp2.RequestHandler):
                 first_name=self.request.get('first_name'),
                 age = int(self.request.get('age')),
                 breed= self.request.get('breed'),
-                friendliness= self.request.get('friendliness'),
+                good_with= self.request.get('good with...'),
                 email = user.nickname()
         )
         biscuit_user.put()
@@ -44,7 +50,7 @@ class questionPage(webapp2.RequestHandler):
         self.response.write(start_template.render())
 
 app = webapp2.WSGIApplication([
-    ('/login', loginPage ),
+    ('/', loginPage ),
     ('/question', questionPage)
 ], debug=True)
 
