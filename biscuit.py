@@ -31,6 +31,8 @@ class loginPage(webapp2.RequestHandler):
             login_url = users.create_login_url('/')
             login_button = '<a href ="%s"> Sign In</a>' % login_url
             self.response.write("Please Log in<br>" + login_button)
+        start_template = jinja_current_dir.get_template("biscuit.html")
+        self.response.write(start_template.render(start_template))
     def post(self):
         user = users.get_current_user()
         if user:
@@ -42,8 +44,8 @@ class loginPage(webapp2.RequestHandler):
                 email = user.nickname()
         )
         biscuit_user.put()
-        start_template = jinja_current_dir.get_template("templates/biscuit.html")
-        self.response.write(start_template.render(saved_dict))
+        start_template = jinja_current_dir.get_template("biscuit.html")
+        self.response.write(start_template.render(start_template))
 class questionPage(webapp2.RequestHandler):
     def post():
         start_template = jinja_current_dir.get_template("templates/question.html")
