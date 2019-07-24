@@ -58,7 +58,9 @@ class loginPage(webapp2.RequestHandler):
 
 class displayPage(webapp2.RequestHandler):
     def get(self):
-        matches = {
+        api_url = "https://api.petfinder.com/v2/animals"
+        api_response = urlfetch.fetch(api_url).content
+        api_response_json = json.loads(api_response)
             "animals": [
                 {
                     "id": 120,
