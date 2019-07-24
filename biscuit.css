@@ -1,17 +1,32 @@
 body {
-  font-family: sans-serif;
+  font-family: serif;
   font-size: 16;
-  background-image: url(https://pbs.twimg.com/media/DYVw-6LWAAAI3ob.jpg);
-  background-size: cover
+  background: white;
+  background-color: #ECF5FA;
 }
-h1{
+
+.messageii {
+  background-color: #ECF5FA;
+  font-family: 'Geostar', cursive;
+}
+
+.loginmessage {
+  background-color: ##d4dce1;
+  border: 1px solid #e6e6e6;
+  border-radius: 1px;
+  margin: 0 0 10px;
+  padding: 50px 100px 100px 100px;
+}
+
+h1 {
   text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 50px;
+  font-size: 50px;
+  margin: 0 40px 10px;
 }
-h2{
-  text-align: center;
-}
-questions{
-  display: block;
-  float: right;
-  background-color: white
+
+.search {
+  background: #faecf5;
 }
