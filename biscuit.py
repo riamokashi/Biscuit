@@ -61,6 +61,8 @@ class displayPage(webapp2.RequestHandler):
         api_url = "https://api.petfinder.com/v2/animals"
         api_response = urlfetch.fetch(api_url).content
         api_response_json = json.loads(api_response)
+
+        matches = {
             "animals": [
                 {
                     "id": 120,
@@ -155,6 +157,7 @@ class displayPage(webapp2.RequestHandler):
                 }
             }
         }
+    }
         display_template = jinja_current_dir.get_template("display.html")
         self.response.write(display_template.render())
 
