@@ -48,7 +48,6 @@ class loginPage(webapp2.RequestHandler):
                 breed= self.request.get('breed'),
                 size= self.request.get('size'),
                 gender = self.request.get('Gender'),
-                haveKids = self.request.get('kids'),
                 email = user.nickname()
         )
             biscuit_user.put()
@@ -58,103 +57,24 @@ class loginPage(webapp2.RequestHandler):
 
 class displayPage(webapp2.RequestHandler):
     def get(self):
-        api_url = "https://api.petfinder.com/v2/animals"
-        api_response = urlfetch.fetch(api_url).content
+        queryString = "type=dog&age=senior&breed=Akita&gender=female&size=large"
+        api_url = "https://api.petfinder.com/v2/animals?" + queryString
+        headers = {
+            "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjliMGQyMzhhYmZmZDRjNWJhM2IyNjFjODFhMzI3Y2IzMzQyZDQwMGU2NDdmYzlkNjlkMzY4ZDI4NzZjMDQyMGZmMDdhY2U1OGQ4NjIxMWY5In0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6IjliMGQyMzhhYmZmZDRjNWJhM2IyNjFjODFhMzI3Y2IzMzQyZDQwMGU2NDdmYzlkNjlkMzY4ZDI4NzZjMDQyMGZmMDdhY2U1OGQ4NjIxMWY5IiwiaWF0IjoxNTYzOTgyNTI0LCJuYmYiOjE1NjM5ODI1MjQsImV4cCI6MTU2Mzk4NjEyNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.P5hEE3FF1D790AnTNv924i31_GxWHRSypojMrDe5lw47I2av5bAf6ksAmkBRAHHn-CL2zN6dA3kQCQx7GzhNq8En30g8pC3_iHjOrslr-hVgkv4SzpJCMadseIJ-UwKe_zvz7DwwMVzD_XyWeBwQ_2QtNWZaEMUjYjl6VD5Cv6_WxBm2FkwnhmXh0JBSW9inYhmb_jPMiEtRDqrAniC25FYBfk9k8kzznZrgdj0Y-5FoU2GVmhTSqovzlcH6x5P87RFiwak0Ba3at8e5r9hvZHloCE8e51j_2ZeuC6i70pfnTp0QNTjYCMezwfFla2Xdx1yZu4dfD_vou1B_-Gs2JQ"
+                  }
+        api_response = urlfetch.fetch(api_url, headers=headers).content
         api_response_json = json.loads(api_response)
-            "animals": [
-                {
-                    "id": 120,
-                    "organization_id": "NJ333",
-                    "url": "https://www.petfinder.com/dog/spot-120/nj/jersey-city/nj333-petfinder-test-account/?referrer_id=d7e3700b-2e07-11e9-b3f3-0800275f82b1",
-                    "type": "Dog",
-                    "species": "Dog",
-                    "breeds": {
-                        "primary": "Akita",
-                        "secondary": null,
-                        "mixed": false,
-                        "unknown": false
-                    },
-                    "colors": {
-                        "primary": null,
-                        "secondary": null,
-                        "tertiary": null
-                    },
-                    "age": "Young",
-                    "gender": "Male",
-                    "size": "Medium",
-                    "coat": null,
-                    "attributes": {
-                        "spayed_neutered": false,
-                        "house_trained": true,
-                        "declawed": null,
-                        "special_needs": true,
-                        "shots_current": false
-                    },
-                    "environment": {
-                        "children": false,
-                        "dogs": false,
-                        "cats": false
-                    },
-                    "tags": [
-                        "Cute",
-                        "Intelligent",
-                        "Large",
-                        "Playful",
-                        "Happy",
-                        "Affectionate"
-                    ],
-                    "name": "Spot",
-                    "description": "Spot is an amazing dog",
-                    "photos": [
-                        {
-                            "small": "http://photos.petfinder.com/photos/pets/42706540/1/?bust=1546042081&width=100",
-                            "medium": "http://photos.petfinder.com/photos/pets/42706540/1/?bust=1546042081&width=300",
-                            "large": "http://photos.petfinder.com/photos/pets/42706540/1/?bust=1546042081&width=600",
-                            "full": "http://photos.petfinder.com/photos/pets/42706540/1/?bust=1546042081"
-                        }
-                    ],
-                    "status": "adoptable",
-                    "published_at": "2018-12-22T20:31:32+0000",
-                    "contact": {
-                        "email": "petfindertechsupport@gmail.com",
-                        "phone": "111-333-5555, 222-333-5555, 333-333-5353, 111-333-2222",
-                        "address": {
-                            "address1": "Test address 1",
-                            "address2": "Test address 2",
-                            "city": "Jersey City",
-                            "state": "NJ",
-                            "postcode": "07097",
-                            "country": "US"
-                        }
-                    },
-                    "_links": {
-                        "self": {
-                            "href": "/v2/animals/120"
-                        },
-                        "type": {
-                            "href": "/v2/types/dog"
-                        },
-                        "organization": {
-                            "href": "/v2/organizations/nj333"
-                        }
-                    }
-                }
-            ],
-            "pagination": {
-                "count_per_page": 20,
-                "total_count": 1,
-                "current_page": 1,
-                "total_pages": 1,
-                "_links": {
-                    "previous": {
-                        "href": "/v2/animals?type=dog&page=1"
-                    },
-                    "next": {
-                        "href": "/v2/animals?type=dog&page=3"
-                    }
-                }
-            }
-        }
+        self.response.write(api_response_json["animals"])
+        # print(api_response_json["animals"])
+        #
+        # print(api_response_json['animals'])
+        # dog_matches = []
+        # for dog_match in api_response_json['animals'][0:10]:
+        #     dog_matches.append(dog_match["animals"])
+        # matches = {
+        #     "img": dog_matches
+        # }
+
         display_template = jinja_current_dir.get_template("display.html")
         self.response.write(display_template.render())
 

@@ -1,118 +1,12 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <meta>
+    <title>Dog Matches</title>
   </head>
   <body>
-    <h1>Here are your matches</h1>
-      <input type="button" name="template" value="log out">
+    {% for dog_match in dog_matches %}
+  <img src="{{url}}">
+    {% endfor %}
   </body>
 </html>
-=======
-<!--
-<html>
-  <head>
-  </head>
-  <body>
-
-  </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to Memegen</title>
-    <!-- <link rel="stylesheet" href="/Users/cssi/Desktop/cssi-labs/python/labs/appengine/the.css"/> -->
-  <!-- </head>
-  <body>
-    <h1>Meme Generator</h1>
-    <!-- <img height="100px" width="150px" src= {{line3}} alt=""> -->
-    <!-- <h2>Welcome to the best Meme Generator around town!!</h2>
-    <form method="post" action="/result">
-      {% for url in imgs%}
-        <img height = 100px width = 100px src="{{url}}"/>
-        <input type="radio" name="template" value="{{url}}"/>
-      {% endfor %}
-      <br>
-
-      <input type="text" name="top-line" value="Your first line here"/>
-      <br>
-      <input type="text" name="bottom-line" value="Your second line here"/>
-      <input type="submit" value="Go!"/>
-    </form>
-
-    <a href="all">Check out all memes</a> -->
-
-  </body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel = "stylesheet" href="biscuit.css">
-    <title> Biscuit: Find The Perfect Pet </title>
-  </head>
-  <body>
-    <div class= "loginmessage">
-    <h1> Hi! <br> </h1>
-    <img src="https://pbs.twimg.com/media/DYVw-6LWAAAI3ob.jpg" alt="Doggo1">
-    <h2>Answer These Questions <br> So We Can Help You Find The Perfect Pet </h2>
-    <form method= 'post' action='/'>
-        <label for 'name' id= "name">Your Name</label><br/>
-        <input name='name' id="name">
-        <br>
-        <label for 'age' id="age">Age</label><br/>
-        <select name = "age">
-                    <option value = "puppy">Puppy</option>
-                    <option value = "young">Young</option>
-                    <option value = "adult">Adult</option>
-                    <option value = "senior">Senior</option>
-                    <option value = "noprefrence"> No Prefrence</option>
-        </select>
-        <br>
-        <label for 'breed' id= "breed">Breed</label><br/>
-        <select breed = "breed">
-          {% for breed in breeds %}
-            <option value = '{{breed}}'>{{breed}}</option>
-          {% endfor %}
-          <option value = 'no_prefrence'>{{breed}}</option>
-        <input type='breed' name='breed'>
-        <br>
-        <label for 'size' id="size">Size</label><br/>
-        <select name = "size">
-                    <option value = "small">Small</option>
-                    <option value = "medium">Medium</option>
-                    <option value = "large">Large</option>
-                    <option value = "xl">XL</option>
-                    <option value = "no_prefrence">No Prefrence</option>
-        </select>
-        <br>
-        <label for 'gender' id="gender">Gender</label><br/>
-        <select name = "Gender">
-                    <option value = "male">Male</option>
-                    <option value = "female">Female</option>
-                    <option value = "no_prefrence">No Prefrence</option>
-        </select>
-        <br>
-        <label for= 'kids' id="kids">Do You Have Kids?</label><br/>
-            <input type="radio" name="yes" value="yes">Yes<br>
-            <input type="radio" name="no" value="no">No<br>
-        </form>
-        <br>
-        <input type='submit'>
-    </form>
-            '''
->>>>>>> 92de29d1803a96227f5ee7c99d9b456ec046a885
