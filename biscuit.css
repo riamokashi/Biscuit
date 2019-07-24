@@ -23,6 +23,7 @@ body {
   color: white;
 }
 .form {
+  font-family: sans-serif;
   background-position: center;
   background-color: #faecf5;
   text-align: center;
@@ -37,4 +38,18 @@ h1 {
   margin: 0 40px 10px;
   background-color: inherit;
   background-attachment: scroll;
+}
+a{
+  color: inherit;
+  border-radius: 1px
+}
+button {
+  font-weight: normal;
+  color: inherit;
+  border: inherit;
+  border-color: inherit;
+  background-color: inherit;
+
+
+
 }
