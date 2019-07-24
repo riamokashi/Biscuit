@@ -47,9 +47,10 @@ class loginPage(webapp2.RequestHandler):
                 haveKids = self.request.get('kids'),
                 email = user.nickname()
         )
-        biscuit_user.put()
-        start_template = jinja_current_dir.get_template("survey.html")
-        self.response.write(start_template.render())
+            biscuit_user.put()
+            self.redirect('/dogs')
+            start_template = jinja_current_dir.get_template("survey.html")
+            self.response.write(start_template.render())
 
 class displayPage(webapp2.RequestHandler):
     def get(self):
