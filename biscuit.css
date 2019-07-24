@@ -1,23 +1,33 @@
 body {
   font-family: serif;
   font-size: 16;
-  background: white;
-  background-color: #ECF5FA;
+  background-image: url(https://media1.giphy.com/media/3Mif9FktQ17xoyyUbR/source.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: inherit;
+  color: white;
 }
-
-.messageii {
-  background-color: #ECF5FA;
-  font-family: 'Geostar', cursive;
-}
-
 .loginmessage {
-  background-color: ##d4dce1;
-  border: 1px solid #e6e6e6;
+  background-color: inherit;
+  border: 1px;
   border-radius: 1px;
   margin: 0 0 10px;
   padding: 50px 100px 100px 100px;
+  text-align: center;
 }
-
+.messageii {
+  background-color: inherit;
+  font-family: 'Geostar', cursive;
+}
+.search {
+  color: white;
+}
+.form {
+  background-position: center;
+  background-color: #faecf5;
+  text-align: center;
+  background-color: inherit;
+  }
 h1 {
   text-align: center;
   font-style: normal;
@@ -25,8 +35,6 @@ h1 {
   line-height: 50px;
   font-size: 50px;
   margin: 0 40px 10px;
-}
-
-.search {
-  background: #faecf5;
+  background-color: inherit;
+  background-attachment: scroll;
 }
