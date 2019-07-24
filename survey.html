@@ -1,70 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel = "stylesheet" href="biscuit.css">
-    <title> Biscuit: Find The Perfect Pet </title>
-  </head>
-  <body>
-    <div class= "loginmessage">
-    <h1> Hi! <br> </h1>
-    <h2>Answer These Questions <br> So We Can Help You Find The Perfect Pet </h2>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="biscuit.css">
+  <link href="https://fonts.googleapis.com/css?family=Geostar&display=swap" rel="stylesheet">
+  <title> Biscuit: Find The Perfect Pet </title>
+</head>
+
+<body>
+  <div class="loginmessage">
+    <br>
+    <div class="messageii">
+      <h1>Welcome To Biscuit</h1>
+    </div>
+    <br>
+  <div class="form">
+  <form method='post' action='/'>
+    <label for 'name' id="name">Your Name</label><br />
+    <input name='name' id="name">
+    <br>
+    <br>
+    <label for 'age' id="age">Age</label><br />
+    <select name="age">
+      <option value="puppy">Puppy</option>
+      <option value="young">Young</option>
+      <option value="adult">Adult</option>
+      <option value="senior">Senior</option>
+      <option value="noprefrence"> No Prefrence</option>
+    </select>
+    <br>
+    <br>
+
+    <label for 'breed' id="breed">Breed</label><br />
+    <select breed="breed">
+      {% for breed in breeds %}
+      <option value='{{breed}}'>{{breed}}</option>
+      {% endfor %}
+      <option value='no_prefrence'>{{breed}}</option>
+    </select>
+    <br>
+
+    <br>
+    <label for 'size' id="size">Size</label><br />
+    <select name="size">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+      <option value="xl">XL</option>
+      <option value="no_prefrence">No Prefrence</option>
+    </select>
+    <br>
+    <br>
+    <label for 'gender' id="gender">Gender</label><br />
+    <select name="Gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="no_prefrence">No Prefrence</option>
+    </select>
+    <br>
+    <br>
+    <label for='kids' id="kids">Do You Have Kids?</label><br />
+    <input type="radio" name="template" value="yes">Yes<br>
+    <input type="radio" name="template" value="no">No<br>
+
+  </form>
   </div>
-  <div class="questions"
-    <form method= 'post' action='/'>
-        <label for 'name' id= "name">Your Name</label><br/>
-        <input name='name' id="name">
-        <br>
-        <br>
-        <label for 'age' id="age">Age</label><br/>
-        <select name = "age">
-                    <option value = "puppy">Puppy</option>
-                    <option value = "young">Young</option>
-                    <option value = "adult">Adult</option>
-                    <option value = "senior">Senior</option>
-                    <option value = "noprefrence"> No Prefrence</option>
-        </select>
-        <br>
-        <br>
-
-        <label for 'breed' id= "breed">Breed</label><br/>
-        <select breed = "breed">
-          {% for breed in breeds %}
-            <option value = '{{breed}}'>{{breed}}</option>
-          {% endfor %}
-          <option value = 'no_prefrence'>{{breed}}</option>
-        </select>
-        <br>
-
-        <br>
-        <label for 'size' id="size">Size</label><br/>
-        <select name = "size">
-                    <option value = "small">Small</option>
-                    <option value = "medium">Medium</option>
-                    <option value = "large">Large</option>
-                    <option value = "xl">XL</option>
-                    <option value = "no_prefrence">No Prefrence</option>
-        </select>
-        <br>
-        <br>
-        <label for 'gender' id="gender">Gender</label><br/>
-        <select name = "Gender">
-                    <option value = "male">Male</option>
-                    <option value = "female">Female</option>
-                    <option value = "no_prefrence">No Prefrence</option>
-        </select>
-        <br>
-        <br>
-        <label for= 'kids' id="kids">Do You Have Kids?</label><br/>
-            <input type="radio" name="template" value="yes">Yes<br>
-            <input type="radio" name="template" value="no">No<br>
-            <input type="submit">
-
-        </form>
-      </div>
-        <br>
+  <br>
+  <button>
+  <a href="dogs"><img src="https://cdn140.picsart.com/271212939016211.png?r240x240" Check out your matches!</a>
+  </form>
 
 
 
- </body>
+</body>
+
 </html>
