@@ -5,9 +5,11 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /css
+  static_dir: css
 - url: /.*
   script: biscuit.app
-
+  
 libraries:
 - name: webapp2
   version: latest
