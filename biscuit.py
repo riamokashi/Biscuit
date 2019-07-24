@@ -44,27 +44,38 @@ class loginPage(webapp2.RequestHandler):
         if user:
             biscuit_user = BiscuitUser(
                 first_name=self.request.get('first_name'),
-                age = self.request.get('age'),
-                breed= self.request.get('breed'),
-                size= self.request.get('size'),
+                age = self.request.get('Age'),
+                breed= self.request.get('Breed'),
+                size= self.request.get('Size'),
                 gender = self.request.get('Gender'),
                 email = user.nickname()
         )
-            biscuit_user.put()
-            self.redirect('/dogs')
             start_template = jinja_current_dir.get_template("survey.html")
             self.response.write(start_template.render())
+            biscuit_user.put()
+            self.redirect('/dogs')
+
 
 class displayPage(webapp2.RequestHandler):
     def get(self):
-        queryString = "type=dog&age=senior&breed=Akita&gender=female&size=large"
-        api_url = "https://api.petfinder.com/v2/animals?" + queryString
-        headers = {
-            "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjliMGQyMzhhYmZmZDRjNWJhM2IyNjFjODFhMzI3Y2IzMzQyZDQwMGU2NDdmYzlkNjlkMzY4ZDI4NzZjMDQyMGZmMDdhY2U1OGQ4NjIxMWY5In0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6IjliMGQyMzhhYmZmZDRjNWJhM2IyNjFjODFhMzI3Y2IzMzQyZDQwMGU2NDdmYzlkNjlkMzY4ZDI4NzZjMDQyMGZmMDdhY2U1OGQ4NjIxMWY5IiwiaWF0IjoxNTYzOTgyNTI0LCJuYmYiOjE1NjM5ODI1MjQsImV4cCI6MTU2Mzk4NjEyNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.P5hEE3FF1D790AnTNv924i31_GxWHRSypojMrDe5lw47I2av5bAf6ksAmkBRAHHn-CL2zN6dA3kQCQx7GzhNq8En30g8pC3_iHjOrslr-hVgkv4SzpJCMadseIJ-UwKe_zvz7DwwMVzD_XyWeBwQ_2QtNWZaEMUjYjl6VD5Cv6_WxBm2FkwnhmXh0JBSW9inYhmb_jPMiEtRDqrAniC25FYBfk9k8kzznZrgdj0Y-5FoU2GVmhTSqovzlcH6x5P87RFiwak0Ba3at8e5r9hvZHloCE8e51j_2ZeuC6i70pfnTp0QNTjYCMezwfFla2Xdx1yZu4dfD_vou1B_-Gs2JQ"
-                  }
-        api_response = urlfetch.fetch(api_url, headers=headers).content
-        api_response_json = json.loads(api_response)
-        self.response.write(api_response_json["animals"])
+        user = users.get_current_user()
+        if user:
+            biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
+
+            queryString = "type=dog&age={age}&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
+            api_url = "https://api.petfinder.com/v2/animals?" + queryString
+            headers = {
+                "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYyYmUwYWNmZDM5MzQ1MWUxYTRjOTVjOGQ4ZGNhNmVjOTkxMmM1OTIzYjA4NzZhMjdiM2Y3MDE1NjhlY2I5MjlmZWExMTAwZmQ0ZjVhZGM0In0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6ImYyYmUwYWNmZDM5MzQ1MWUxYTRjOTVjOGQ4ZGNhNmVjOTkxMmM1OTIzYjA4NzZhMjdiM2Y3MDE1NjhlY2I5MjlmZWExMTAwZmQ0ZjVhZGM0IiwiaWF0IjoxNTYzOTk2MzUyLCJuYmYiOjE1NjM5OTYzNTIsImV4cCI6MTU2Mzk5OTk1Miwic3ViIjoiIiwic2NvcGVzIjpbXX0.e8CzcE7I0U9oRMz7AB5R6GNGe0a0xBZVHYkEmhDvlibc9uap32UZ3K6Udr3bXSsiRzS5NWHrNvh7aGej9WUt9iCN10IAcjroklZI-TBugFuUO6e3GFYKbX36eRbri1VIeVrYWg4P11vaZZp5C8vh-HO0Q9bPfdCesxSVdD2iW-4zO05UkEqGEwZLjwuUFeIKo7_Yrduy-ciW9CwwMYUb4kNgUxrAs0KXFN7yuNJ8A6iJkHktL2RAEV50JnYRmmfTpPvAdE6yW31LTIIgXDu0eey3huNIIv0rUZ8DwEENtju31MVUWluRtvu17Vm7gPu6pnXvkk6E-j5j-X6-YPsvSA"
+                      }
+            api_response = urlfetch.fetch(api_url, headers=headers).content
+            api_response_json = json.loads(api_response)
+
+            data_dict = {'photos': []}
+            for photo in api_response_json['animals']['photos']:
+                data_dict['photos'].append(photo['large'])
+
+
+            self.response.write(api_response_json['animals'])
         # print(api_response_json["animals"])
         #
         # print(api_response_json['animals'])

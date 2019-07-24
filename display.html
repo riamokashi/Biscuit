@@ -5,6 +5,11 @@
     <title>Biscuit: Time To Bone</title>
   </head>
   <body>
+    <h1>DISPLAY PAGE IS WORKING!!</h1>
       <input type="button" name="template" value="log out">
+
+      {% for pic in pictures %}
+      <img src='{{pic}}'/>
+      {% endfor %}
   </body>
 </html>
