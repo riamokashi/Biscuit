@@ -1,3 +1,7 @@
-.body{
-  center
+.loginmessage {
+  font-family: sans-serif;
+  font-size: 16
+}
+.center-children {
+  text-align: center;
 }
