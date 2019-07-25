@@ -7,32 +7,32 @@ import json
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from datetime import datetime, timedelta
-
-CONFIG_API_TOKEN_KEY = 'api_key'
-CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
-API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
-TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
-
-def refresh_api_token():
-    payload = urllib.urlencode({
-    'grant_type': 'client_credentials',
-    'contentType': 'application/x-www-form-urlencoded',
-    'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
-    'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
-    })
-    api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
-    response_json = json.loads(api_response)
-    api_token  = response_json['access_token']
-    print("API token refreshed: %s" % api_token)
-    return api_token
-
-def get_api_token(requestHandler):
-    token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
-    if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
-        token = refresh_api_token()
-        requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
-        requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
-    return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
+#
+# CONFIG_API_TOKEN_KEY = 'api_key'
+# CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
+# API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
+# TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
+#
+# def refresh_api_token():
+#     payload = urllib.urlencode({
+#     'grant_type': 'client_credentials',
+#     'contentType': 'application/x-www-form-urlencoded',
+#     'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
+#     'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
+#     })
+#     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
+#     response_json = json.loads(api_response)
+#     api_token  = response_json['access_token']
+#     print("API token refreshed: %s" % api_token)
+#     return api_token
+#
+# def get_api_token(requestHandler):
+#     token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
+#     if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
+#         token = refresh_api_token()
+#         requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
+#         requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
+#     return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
 
 class BiscuitUser(ndb.Model):
     first_name = ndb.StringProperty()
@@ -52,10 +52,8 @@ jinja_current_dir = jinja2.Environment(
 class loginPage(webapp2.RequestHandler):
     def get(self):
         print("loginPage.get")
-<<<<<<< HEAD
         # print(get_api_key())
-=======
->>>>>>> 4425dc87393d79cdf9433815b3e8cb4ba5446fec
+
         user = users.get_current_user()
         if user:
             print("loginPage.get user exists")
@@ -106,7 +104,7 @@ class displayPage(webapp2.RequestHandler):
             print('api_url: ' + api_url)
             # print("API TOKEN: " + API_TOKEN)
             headers = {
-                "Authorization" : "Bearer {token}".format(token=get_api_token(self))
+                "Authorization" : "Bearer {token}".format(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3YjI2NTEzODZhNWMwNGQyZTVmYjQxY2RmNzE5YjNiNTAzYjMyYzYyZTRjNDA0MTI4ZDY1ZGNiMTJmYzk3N2IzN2E5YWUzNmZmMGE0ODkyIn0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6ImI3YjI2NTEzODZhNWMwNGQyZTVmYjQxY2RmNzE5YjNiNTAzYjMyYzYyZTRjNDA0MTI4ZDY1ZGNiMTJmYzk3N2IzN2E5YWUzNmZmMGE0ODkyIiwiaWF0IjoxNTY0MDg1NTA5LCJuYmYiOjE1NjQwODU1MDksImV4cCI6MTU2NDA4OTEwOSwic3ViIjoiIiwic2NvcGVzIjpbXX0.xFI-NZhR37sLKpn8nNJQAB41oyrX6ckPOVS-rhU373NZ2fINAWKYKiAytJA6LrCv0ryFWiLpF_MYLuwhIPGq1zoisfZD_ikoUfunVjZ_QUatDMFAxQQCAweMYeNFwvL9BRikVgt_GgaBvzDeL3jmfCErhoBl-s2gLpbBUbbt-lnWFCDGAlQTF3HnqDr8OXHaUGgbQ52sziHjFkcik2QwmK_VqznUdV3Ls7BlnhLqacSMuWcMi8bvtl-3EA7lsp_-RFqQhErmP9RndcKM9wQDreWYDq6UtJ3gIP589i75W2RfEjWaUTG51ZSw46NpGJ-8gsgEXEpTw0EJqCJfmm7Rfg")
                       }
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
@@ -127,10 +125,10 @@ class displayPage(webapp2.RequestHandler):
 # class HistoryPage(webapp2.RequestHandler):
 #     def get(self)
 
-config = {
-    CONFIG_API_TOKEN_KEY: refresh_api_token(),
-    CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
-}
+# config = {
+#     CONFIG_API_TOKEN_KEY: refresh_api_token(),
+#     CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
+# }
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
