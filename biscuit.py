@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 CONFIG_API_TOKEN_KEY = 'api_key'
 CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
 API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
-TOKEN_EXPIRATION_MILLIS = 10000
+TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
 
 def refresh_api_token():
     payload = urllib.urlencode({
@@ -28,10 +28,10 @@ def refresh_api_token():
 
 def get_api_token(requestHandler):
     token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
-    if token_birthdate < datetime.now() - timedelta(millis=TOKEN_EXPIRATION_MILLIS):
-        token = refresh_api_token(requestHandler)
-        requestHandler.app.config.update((CONFIG_API_TOKEN_KEY, token))
-        requestHandler.app.config.update((CONFIG_API_TOKEN_BIRTHDAY_KEY,datetime.now()))
+    if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
+        token = refresh_api_token()
+        requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
+        requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
     return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
 
 class BiscuitUser(ndb.Model):
@@ -97,7 +97,7 @@ class displayPage(webapp2.RequestHandler):
             print("USER NICKNAME! " + user.nickname())
             biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
-            queryString = "type=dog&age={age}&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
+            queryString = "type=dog&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
             api_url = "https://api.petfinder.com/v2/animals?" + queryString
             print('api_url: ' + api_url)
             # print("API TOKEN: " + API_TOKEN)
@@ -107,7 +107,7 @@ class displayPage(webapp2.RequestHandler):
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
 
-            print("API RESPONSE JSON: " + str(api_response_json))
+            # print("API RESPONSE JSON: " + str(api_response_json))
             data_dict = {'photos': []}
             for animal in api_response_json['animals']:
                 for photo in animal['photos']:
