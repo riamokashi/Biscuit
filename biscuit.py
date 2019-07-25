@@ -6,11 +6,14 @@ from google.appengine.api import urlfetch
 import json
 from google.appengine.api import users
 from google.appengine.ext import ndb
-import threading
+from datetime import datetime, timedelta
 
+CONFIG_API_TOKEN_KEY = 'api_key'
+CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
 API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
-API_TOKEN = ''
-def get_api_key():
+TOKEN_EXPIRATION_MILLIS = 10000
+
+def refresh_api_token():
     payload = urllib.urlencode({
     'grant_type': 'client_credentials',
     'contentType': 'application/x-www-form-urlencoded',
@@ -19,16 +22,17 @@ def get_api_key():
     })
     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
     response_json = json.loads(api_response)
-    API_TOKEN = response_json['access_token']
-    print("API token refreshed: %s" % API_TOKEN)
+    api_token  = response_json['access_token']
+    print("API token refreshed: %s" % api_token)
+    return api_token
 
-def refresh_api_token(func, sec):
-    def func_wrapper():
-        refresh_api_token(func, sec)
-        func()
-    t = threading.Timer(sec, func_wrapper)
-    t.start()
-    return t
+def get_api_token(requestHandler):
+    token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
+    if token_birthdate < datetime.now() - timedelta(millis=TOKEN_EXPIRATION_MILLIS):
+        token = refresh_api_token(requestHandler)
+        requestHandler.app.config.update((CONFIG_API_TOKEN_KEY, token))
+        requestHandler.app.config.update((CONFIG_API_TOKEN_BIRTHDAY_KEY,datetime.now()))
+    return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
 
 class BiscuitUser(ndb.Model):
     first_name = ndb.StringProperty()
@@ -48,7 +52,6 @@ jinja_current_dir = jinja2.Environment(
 class loginPage(webapp2.RequestHandler):
     def get(self):
         print("loginPage.get")
-        print(get_api_key())
         user = users.get_current_user()
         if user:
             print("loginPage.get user exists")
@@ -98,7 +101,7 @@ class displayPage(webapp2.RequestHandler):
             api_url = "https://api.petfinder.com/v2/animals?" + queryString
             print('api_url: ' + api_url)
             headers = {
-                "Authorization" : "Bearer {token}".format(token=API_TOKEN)
+                "Authorization" : "Bearer {token}".format(token=get_api_token(self))
                       }
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
@@ -123,12 +126,14 @@ class displayPage(webapp2.RequestHandler):
         self.response.write(display_template.render())
 
 
-
+config = {
+    CONFIG_API_TOKEN_KEY: refresh_api_token(),
+    CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
+}
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage)
-], debug=True)
-refresh_api_token(get_api_key, 3500)
+], debug=True, config=config)
 
 #meme generator for reference
 # import webapp2
