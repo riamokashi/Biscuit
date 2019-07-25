@@ -24,13 +24,14 @@ body {
 .search {
   color: white;
 }
+
 .form {
+  shape-outside: content-box;
   font-family: sans-serif;
   font-size: 30px;
   background-position: center;
-  background-color: #faecf5;
   text-align: center;
-  background-color: inherit;
+  opacity: .85;
   }
 .form label {
   text-shadow: 3px 3px black;
