@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/biscuit.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:900&display=swap" rel="stylesheet">
   <title> Biscuit: Find The Perfect Pet </title>
 </head>
-
 <body>
   <div class="loginmessage">
     <br>
@@ -15,6 +13,7 @@
       <h1>Welcome To Biscuit</h1>
     </div>
     <br>
+  <div class="boxed">
   <div class="form">
   <form method='post' action='/'>
     <label for 'name' id="name">Name</label><br />
@@ -23,19 +22,11 @@
     <br>
     <label for 'age' id="age">Age</label><br />
     <select name="age">
-<<<<<<< HEAD
         <option value="puppy">Puppy</option>
         <option value="young">Young</option>
         <option value="adult">Adult</option>
         <option value="senior">Senior</option>
         <option value="noprefrence">No Prefrence</option>
-=======
-      <option value="baby">Baby</option>
-      <option value="young">Young</option>
-      <option value="adult">Adult</option>
-      <option value="senior">Senior</option>
-      <option value="noprefrence"> No Prefrence</option>
->>>>>>> 1ab1aaffaaec3a2de1102271cf98935892abccc7
     </select>
     <br>
     <br>
@@ -67,9 +58,12 @@
       <option value="no_prefrence">No Prefrence</option>
     </select>
     <br>
-
-
+    <br>
+    <label for='kids' id="kids">Do You Have Kids?</label><br />
+    <input type="radio" name="template" value="yes">Yes<br>
+    <input type="radio" name="template" value="no">No<br>
   </form>
+</boxed>
   </div>
   <br>
   <button>
