@@ -48,7 +48,7 @@ jinja_current_dir = jinja2.Environment(
 class loginPage(webapp2.RequestHandler):
     def get(self):
         print("loginPage.get")
-        print(get_api_key())
+        # print(get_api_key())
         user = users.get_current_user()
         if user:
             print("loginPage.get user exists")
@@ -116,16 +116,15 @@ class displayPage(webapp2.RequestHandler):
 
             display_template = jinja_current_dir.get_template("display.html")
             self.response.write(display_template.render(data_dict))
-
-class HistoryPage(webapp2.RequestHandler):
-
-
+#
+# class HistoryPage(webapp2.RequestHandler):
+#     def get(self)
 
 
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
-    ('/history', HistoryPage)
+    # ('/history', HistoryPage)
 ], debug=True)
 # get_api_key()
 # refresh_api_token(get_api_key, 3500)
