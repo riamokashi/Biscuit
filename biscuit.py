@@ -119,16 +119,8 @@ class displayPage(webapp2.RequestHandler):
 
             display_template = jinja_current_dir.get_template("display.html")
             self.response.write(display_template.render(data_dict))
-        # print(api_response_json["animals"])
-        #
-        # print(api_response_json['animals'])
-        # dog_matches = []
-        # for dog_match in api_response_json['animals'][0:10]:
-        #     dog_matches.append(dog_match["animals"])
-        # matches = {
-        #     "img": dog_matches
-        # }
-        #
+
+class HistoryPage(webapp2.RequestHandler):
 
 
 
@@ -138,8 +130,11 @@ config = {
 }
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
-    ('/dogs', displayPage)
+    ('/dogs', displayPage),
+    ('/history', HistoryPage)
 ], debug=True, config=config)
+# get_api_key()
+# refresh_api_token(get_api_key, 3500)
 
 #meme generator for reference
 # import webapp2
