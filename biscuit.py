@@ -100,18 +100,25 @@ class displayPage(webapp2.RequestHandler):
             queryString = "type=dog&age={age}&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
             api_url = "https://api.petfinder.com/v2/animals?" + queryString
             print('api_url: ' + api_url)
+            # print("API TOKEN: " + API_TOKEN)
             headers = {
                 "Authorization" : "Bearer {token}".format(token=get_api_token(self))
                       }
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
 
+            print("API RESPONSE JSON: " + str(api_response_json))
             data_dict = {'photos': []}
-            for photo in api_response_json['animals']['photos']:
-                data_dict['photos'].append(photo['large'])
+            for animal in api_response_json['animals']:
+                for photo in animal['photos']:
+                    data_dict['photos'].append(photo['large'])
+                    break
+            logout_url = users.create_logout_url('/')
+            logout_button = '<a href="%s"> Logout </a>' % logout_url
 
 
-            self.response.write(api_response_json['animals'])
+            display_template = jinja_current_dir.get_template("display.html")
+            self.response.write(display_template.render(data_dict))
         # print(api_response_json["animals"])
         #
         # print(api_response_json['animals'])
@@ -121,9 +128,8 @@ class displayPage(webapp2.RequestHandler):
         # matches = {
         #     "img": dog_matches
         # }
+        #
 
-        display_template = jinja_current_dir.get_template("display.html")
-        self.response.write(display_template.render())
 
 
 config = {
