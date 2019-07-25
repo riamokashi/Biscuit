@@ -1,0 +1,37 @@
+header{
+  text-align: center;
+  height: 100px;
+}
+h1{
+  font-family: 'Montserrat', sans-serif;
+}
+.doggo{
+  float: right;
+}
+.images{
+  background-color: red;
+  width: 70%;
+  float: right;
+  height: calc(100vh - 100px);
+}
+.history{
+  background-color: blue;
+  text-align: left;
+  color: orange;
+  width: 30%;
+  float: left;
+  height: calc(100vh - 100px);
+}
+.container{
+  background-color: green;
+  overflow: auto;
+  height: 100%;
+  min-width: 830px;
+}
+.logout{
+  position: fixed;
+}
+footer{
+  display: block;
+  width: 100%;
+}
