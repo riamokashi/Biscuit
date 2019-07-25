@@ -6,29 +6,33 @@ from google.appengine.api import urlfetch
 import json
 from google.appengine.api import users
 from google.appengine.ext import ndb
-# import threading
-#
-# API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
-# API_TOKEN = ''
-# def get_api_key():
-#     payload = urllib.urlencode({
-#     'grant_type': 'client_credentials',
-#     'contentType': 'application/x-www-form-urlencoded',
-#     'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
-#     'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
-#     })
-#     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
-#     response_json = json.loads(api_response)
-#     API_TOKEN = response_json['access_token']
-#     print("API token refreshed: %s" % API_TOKEN)
-#
-# def refresh_api_token(func, sec):
-#     def func_wrapper():
-#         func()
-#         refresh_api_token(func, sec)
-#     t = threading.Timer(sec, func_wrapper)
-#     t.start()
-#     return t
+from datetime import datetime, timedelta
+
+CONFIG_API_TOKEN_KEY = 'api_key'
+CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
+API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
+TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
+
+def refresh_api_token():
+    payload = urllib.urlencode({
+    'grant_type': 'client_credentials',
+    'contentType': 'application/x-www-form-urlencoded',
+    'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
+    'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
+    })
+    api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
+    response_json = json.loads(api_response)
+    api_token  = response_json['access_token']
+    print("API token refreshed: %s" % api_token)
+    return api_token
+
+def get_api_token(requestHandler):
+    token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
+    if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
+        token = refresh_api_token()
+        requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
+        requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
+    return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
 
 class BiscuitUser(ndb.Model):
     first_name = ndb.StringProperty()
@@ -48,7 +52,10 @@ jinja_current_dir = jinja2.Environment(
 class loginPage(webapp2.RequestHandler):
     def get(self):
         print("loginPage.get")
+<<<<<<< HEAD
         # print(get_api_key())
+=======
+>>>>>>> 4425dc87393d79cdf9433815b3e8cb4ba5446fec
         user = users.get_current_user()
         if user:
             print("loginPage.get user exists")
@@ -94,17 +101,17 @@ class displayPage(webapp2.RequestHandler):
             print("USER NICKNAME! " + user.nickname())
             biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
-            queryString = "type=dog&age={age}&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
+            queryString = "type=dog&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
             api_url = "https://api.petfinder.com/v2/animals?" + queryString
             print('api_url: ' + api_url)
             # print("API TOKEN: " + API_TOKEN)
             headers = {
-                "Authorization" : "Bearer {token}".format(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1ODlkZGZhZDAwNDhkMDhkMWVmMWY2NDZmMGJjMWE2MDVmNGJkZDk3NTRkMDE2MjVkNTEzNTEwYzZjZGRmM2UyNzMyZjE3Y2QyZmI2YmExIn0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6IjM1ODlkZGZhZDAwNDhkMDhkMWVmMWY2NDZmMGJjMWE2MDVmNGJkZDk3NTRkMDE2MjVkNTEzNTEwYzZjZGRmM2UyNzMyZjE3Y2QyZmI2YmExIiwiaWF0IjoxNTY0MDcwMDc2LCJuYmYiOjE1NjQwNzAwNzYsImV4cCI6MTU2NDA3MzY3Niwic3ViIjoiIiwic2NvcGVzIjpbXX0.ym812Z-alhCeBE_UAM3RvAP_U0sUXeeREjmy6QNTvLPoUszJY3CMEAGGLUa6o2FAdCzeOx_-x_EdtetU_ZEDHYDHZJcqpDnV7zFhtcqSfVNHwr08cKlbwFfZs4_ykBw5PZKUBKl6mTH-KOJiIBkm1wiBzMhOyE_T15yfajC32ZYs8mjRAluug2BXyOOdx6Rzbo1B6cirl4JHP0SuP9gvEiE1gBFRysHcl-TX-gfY_AroB4bP7VB63aU_-srNwtHPm5oim1egSfBrjh0G6VkeRIc4lQyqVVDn2DT-Yx658xhe3erUUh-AlxBfdjPIpmgjzNAVXwpeB_PhkFowU_AhQQ")
+                "Authorization" : "Bearer {token}".format(token=get_api_token(self))
                       }
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
 
-            print("API RESPONSE JSON: " + str(api_response_json))
+            # print("API RESPONSE JSON: " + str(api_response_json))
             data_dict = {'photos': []}
             for animal in api_response_json['animals']:
                 for photo in animal['photos']:
@@ -120,7 +127,10 @@ class displayPage(webapp2.RequestHandler):
 # class HistoryPage(webapp2.RequestHandler):
 #     def get(self)
 
-
+config = {
+    CONFIG_API_TOKEN_KEY: refresh_api_token(),
+    CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
+}
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
