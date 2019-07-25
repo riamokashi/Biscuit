@@ -99,7 +99,7 @@ class displayPage(webapp2.RequestHandler):
             print('api_url: ' + api_url)
             # print("API TOKEN: " + API_TOKEN)
             headers = {
-                "Authorization" : "Bearer {token}".format(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY3ZjFiOTU0OWI5ZWM3MDQxYmY4OTg2ZmI3MDQ2N2RmMTg1MGJkNmU0OTRjZTg5NTZhOWE1YzQxN2YwYzdlNzI0MTMyODY4MTE2NmNhNGUwIn0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6IjY3ZjFiOTU0OWI5ZWM3MDQxYmY4OTg2ZmI3MDQ2N2RmMTg1MGJkNmU0OTRjZTg5NTZhOWE1YzQxN2YwYzdlNzI0MTMyODY4MTE2NmNhNGUwIiwiaWF0IjoxNTY0MDY0MjY0LCJuYmYiOjE1NjQwNjQyNjQsImV4cCI6MTU2NDA2Nzg2NCwic3ViIjoiIiwic2NvcGVzIjpbXX0.DeUSSELZ_Efx6cf7w0nsQJjl7dHiwPQGgw_nBI4XKyhK1oZDpnZNEzz8aEdd4pDt3XUiuvhOAuRxfFb8rhVdpS04bydbI7Hi05hG4d9jTEOsjRDKBjitmo6o8JWtxumQgI_vRKCkmdK1T4K--KEGu6TbVwtzlJ11mT_iLrqvapC-zKGt9BP4achWuQdkP6_qMZeDo6XOvZ7VJrhnsbmIUw3Vu7oNWIkGiz0XKQl01rc17EK1zbyJkObXSd6MokhTYoASR3IMDa_M3jPH4q1PEXsbOWKI2LsD-ImN41weBCsGHtQAIIROITWT9MLBPxkbN7qTsOsuauP1jqBOelm_BA")
+                "Authorization" : "Bearer {token}".format(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1ODlkZGZhZDAwNDhkMDhkMWVmMWY2NDZmMGJjMWE2MDVmNGJkZDk3NTRkMDE2MjVkNTEzNTEwYzZjZGRmM2UyNzMyZjE3Y2QyZmI2YmExIn0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6IjM1ODlkZGZhZDAwNDhkMDhkMWVmMWY2NDZmMGJjMWE2MDVmNGJkZDk3NTRkMDE2MjVkNTEzNTEwYzZjZGRmM2UyNzMyZjE3Y2QyZmI2YmExIiwiaWF0IjoxNTY0MDcwMDc2LCJuYmYiOjE1NjQwNzAwNzYsImV4cCI6MTU2NDA3MzY3Niwic3ViIjoiIiwic2NvcGVzIjpbXX0.ym812Z-alhCeBE_UAM3RvAP_U0sUXeeREjmy6QNTvLPoUszJY3CMEAGGLUa6o2FAdCzeOx_-x_EdtetU_ZEDHYDHZJcqpDnV7zFhtcqSfVNHwr08cKlbwFfZs4_ykBw5PZKUBKl6mTH-KOJiIBkm1wiBzMhOyE_T15yfajC32ZYs8mjRAluug2BXyOOdx6Rzbo1B6cirl4JHP0SuP9gvEiE1gBFRysHcl-TX-gfY_AroB4bP7VB63aU_-srNwtHPm5oim1egSfBrjh0G6VkeRIc4lQyqVVDn2DT-Yx658xhe3erUUh-AlxBfdjPIpmgjzNAVXwpeB_PhkFowU_AhQQ")
                       }
             api_response = urlfetch.fetch(api_url, headers=headers).content
             api_response_json = json.loads(api_response)
@@ -115,17 +115,17 @@ class displayPage(webapp2.RequestHandler):
 
 
             display_template = jinja_current_dir.get_template("display.html")
-            self.response.write(display_template.render())
-        print(api_response_json["animals"])
-
-        print(api_response_json['animals'])
-        dog_matches = []
-        for dog_match in api_response_json['animals'][0:10]:
-            dog_matches.append(dog_match["animals"])
-        matches = {
-            "img": dog_matches
-        }
-
+            self.response.write(display_template.render(data_dict))
+        # print(api_response_json["animals"])
+        #
+        # print(api_response_json['animals'])
+        # dog_matches = []
+        # for dog_match in api_response_json['animals'][0:10]:
+        #     dog_matches.append(dog_match["animals"])
+        # matches = {
+        #     "img": dog_matches
+        # }
+        #
 
 
 
