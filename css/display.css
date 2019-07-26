@@ -80,3 +80,11 @@ footer{
   width: 100%;
   text-align: center;
 }
+.hidden-images{
+  display: none;
+}
+.dogpic{
+  shape-inside: rectangle(.history);
+  scroll-behavior: smooth;
+  image-resolution: 10%;
+}
