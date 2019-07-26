@@ -17,6 +17,8 @@ h1{
   width: 70%;
   float: right;
   height: calc(100vh - 100px);
+  display: inline-flex;
+  image-resolution: 25%;
 }
 .text{
   font: 'Montserrat', sans-serif; 45px;
@@ -32,12 +34,13 @@ h1{
   width: 30%;
   float: left;
   height: calc(100vh - 100px);
+  shape-outside: rectangle(.dogpic)
 }
 .hisstory{
   font-size: 50px;
 }
 .container{
-  background-color: red;
+  background-color: blue;
   overflow: auto;
   height: 100%;
   min-width: 830px;
@@ -51,6 +54,7 @@ h1{
   flex: auto;
   background-color: yellow;
   shape-inside: .container;
+  shape-image-threshold: .history;
 }
 #borderimg {
   border-image: url(border.png) 30 round;
@@ -77,4 +81,9 @@ footer{
 }
 .hidden-images{
   display: none;
+}
+.dogpic{
+  shape-inside: rectangle(.history);
+  scroll-behavior: smooth;
+  image-resolution: 10%;
 }
