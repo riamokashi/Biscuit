@@ -58,3 +58,6 @@ footer{
   display: block;
   width: 100%;
 }
+.hidden-images{
+  display: none;
+}

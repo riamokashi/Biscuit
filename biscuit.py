@@ -129,11 +129,9 @@ class displayPage(webapp2.RequestHandler):
             # queryString = "type=dog"
             # print('api_url: ' + api_url)
             # print("API TOKEN: " + API_TOKEN)
-
-
-
-
-
+class aboutTheTeam(webapp2.RequestHandler):
+    def get(self):
+        print("working")
             # print("API RESPONSE JSON: " + str(api_response_json))
             # missing_photos = []
             # print("animals length is: " + str(len(api_response_json['animals'])))
@@ -155,8 +153,8 @@ class displayPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
-    ('/firstpage', firstPage)
-    # ('/history', HistoryPage)
+    ('/firstpage', firstPage),
+    ('/aboutus', aboutTheTeam)
 ], debug=True)
 # get_api_key()
 # refresh_api_token(get_api_key, 3500)

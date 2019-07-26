@@ -7,9 +7,13 @@ threadsafe: true
 handlers:
 - url: /css
   static_dir: css
+
+- url: /scripts
+  static_dir: scripts
+
 - url: /.*
   script: biscuit.app
-  
+
 libraries:
 - name: webapp2
   version: latest
