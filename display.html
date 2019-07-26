@@ -10,11 +10,17 @@
       background-repeat: no-repeat;}
     </style>
   </head>
-  
+
   <body>
     <div class="header">
     <header>
       <h1>Biscuit</h1>
+      {% for pic in photos %}
+      <img src="{{pic}}">
+      {% endfor %}
+      <br>
+      <a href="{{logout_url}}">Logout</a>
+
     </header>
   </div>
   <div class="container">
@@ -26,7 +32,6 @@
       </div>
   </div>
   <footer>
-      <input class="logout" type="button" name="template">
   </footer>
   </body>
 </html>

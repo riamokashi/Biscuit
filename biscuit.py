@@ -10,21 +10,22 @@ from datetime import datetime, timedelta
 #
 # CONFIG_API_TOKEN_KEY = 'api_key'
 # CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
-# API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
+API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
 # TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
 #
-# def refresh_api_token():
-#     payload = urllib.urlencode({
-#     'grant_type': 'client_credentials',
-#     'contentType': 'application/x-www-form-urlencoded',
-#     'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
-#     'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
-#     })
-#     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
-#     response_json = json.loads(api_response)
-#     api_token  = response_json['access_token']
-#     print("API token refreshed: %s" % api_token)
-#     return api_token
+
+def get_or_remake_api_token():
+    payload = urllib.urlencode({
+    'grant_type': 'client_credentials',
+    'contentType': 'application/x-www-form-urlencoded',
+    'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
+    'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
+    })
+    api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
+    response_json = json.loads(api_response)
+    api_token  = response_json['access_token']
+    print("API token refreshed: %s" % api_token)
+    return api_token
 #
 # def get_api_token(requestHandler):
 #     token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
@@ -48,12 +49,22 @@ jinja_current_dir = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-
+class firstPage(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            self.redirect('/')
+        else:
+            print("loginPage.get user doesn't exist")
+            login_url = users.create_login_url('/')
+            login_button = '<a href="%s">Sign In</a>'  % login_url
+            self.response.write("Please Log in<br>" + login_button)
+            first_template = jinja_current_dir.get_template("firstPage.html")
+            self.response.write(first_template.render())
 class loginPage(webapp2.RequestHandler):
     def get(self):
         print("loginPage.get")
         # print(get_api_key())
-
         user = users.get_current_user()
         if user:
             print("loginPage.get user exists")
@@ -61,19 +72,13 @@ class loginPage(webapp2.RequestHandler):
             logout_url = users.create_logout_url('/')
             existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
             if existing_user:
-                print("loginPage.get is registered")
-                self.response.write("Welcome back " + email_address)
-                self.response.write("<br> <input type='button' name='template' value='log out'>")
-                self.response.write("<a href='/dogs'>View your matches for today!</a>")
+                self.redirect('/dogs')
             else:
                 print("loginPage.get not registered")
                 survey_template = jinja_current_dir.get_template("survey.html")
                 self.response.write(survey_template.render())
         else:
-            print("loginPage.get user doesn't exist")
-            login_url = users.create_login_url('/')
-            login_button = '<a href ="%s"> Sign In</a>' % login_url
-            self.response.write("Please Log in<br>" + login_button)
+            self.redirect('/firstpage')
     def post(self):
         print("loginPage.post")
         user = users.get_current_user()
@@ -99,28 +104,46 @@ class displayPage(webapp2.RequestHandler):
             print("USER NICKNAME! " + user.nickname())
             biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
-            queryString = "type=dog&breed={breed}&gender={gender}&size={size}".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender)
-            api_url = "https://api.petfinder.com/v2/animals?" + queryString
-            print('api_url: ' + api_url)
-            # print("API TOKEN: " + API_TOKEN)
+            api_token = get_or_remake_api_token()
+            print("displayPage is using api_token:" + api_token)
             headers = {
-                "Authorization" : "Bearer {token}".format(token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImI3YjI2NTEzODZhNWMwNGQyZTVmYjQxY2RmNzE5YjNiNTAzYjMyYzYyZTRjNDA0MTI4ZDY1ZGNiMTJmYzk3N2IzN2E5YWUzNmZmMGE0ODkyIn0.eyJhdWQiOiJNZ2NVbHIxYm5NRmRGcDE4T2hxaEhhYVVhcmF4NDA4SUdLZVFOQ2VlV0czRmVDaUhWTSIsImp0aSI6ImI3YjI2NTEzODZhNWMwNGQyZTVmYjQxY2RmNzE5YjNiNTAzYjMyYzYyZTRjNDA0MTI4ZDY1ZGNiMTJmYzk3N2IzN2E5YWUzNmZmMGE0ODkyIiwiaWF0IjoxNTY0MDg1NTA5LCJuYmYiOjE1NjQwODU1MDksImV4cCI6MTU2NDA4OTEwOSwic3ViIjoiIiwic2NvcGVzIjpbXX0.xFI-NZhR37sLKpn8nNJQAB41oyrX6ckPOVS-rhU373NZ2fINAWKYKiAytJA6LrCv0ryFWiLpF_MYLuwhIPGq1zoisfZD_ikoUfunVjZ_QUatDMFAxQQCAweMYeNFwvL9BRikVgt_GgaBvzDeL3jmfCErhoBl-s2gLpbBUbbt-lnWFCDGAlQTF3HnqDr8OXHaUGgbQ52sziHjFkcik2QwmK_VqznUdV3Ls7BlnhLqacSMuWcMi8bvtl-3EA7lsp_-RFqQhErmP9RndcKM9wQDreWYDq6UtJ3gIP589i75W2RfEjWaUTG51ZSw46NpGJ-8gsgEXEpTw0EJqCJfmm7Rfg")
-                      }
-            api_response = urlfetch.fetch(api_url, headers=headers).content
-            api_response_json = json.loads(api_response)
-
-            # print("API RESPONSE JSON: " + str(api_response_json))
+                "Authorization" : "Bearer {token}".format(token=api_token)
+            }
             data_dict = {'photos': []}
-            for animal in api_response_json['animals']:
-                for photo in animal['photos']:
-                    data_dict['photos'].append(photo['large'])
-                    break
-            logout_url = users.create_logout_url('/')
-            logout_button = '<a href="%s"> Logout </a>' % logout_url
+            page_numbers = range(1,10)
+            for page_number in page_numbers:
+                queryString = "type=dog&breed={breed}&age={age}&gender={gender}&size={size}&page={page_number}&limit=100".format(age=biscuit_user.age, breed=biscuit_user.breed, size=biscuit_user.size, gender=biscuit_user.gender, page_number=page_number)
+                api_url = "https://api.petfinder.com/v2/animals?" + queryString
+                api_response = urlfetch.fetch(api_url, headers=headers).content
+                api_response_json = json.loads(api_response)
+                for animal in api_response_json['animals']:
+                    if(len(animal['photos']) > 0):
+                        data_dict['photos'].append(animal['photos'][0]['large'])
+            user = users.get_current_user()
 
+            logout_url = users.create_logout_url('/')
+            data_dict['logout_url']= logout_url
 
             display_template = jinja_current_dir.get_template("display.html")
             self.response.write(display_template.render(data_dict))
+            # queryString = "type=dog"
+            # print('api_url: ' + api_url)
+            # print("API TOKEN: " + API_TOKEN)
+
+
+
+
+
+            # print("API RESPONSE JSON: " + str(api_response_json))
+            # missing_photos = []
+            # print("animals length is: " + str(len(api_response_json['animals'])))
+
+                # data_dict['photos'].append(animal['photos'][0]['large'])
+                # for photo in animal['photos']:
+                #     data_dict['photos'].append(photo['large'])
+                #     break
+            # print("photos length is: " + str(len(data_dict['photos'])))
+            # print("missing photos length is: " + str(len(missing_photos)))
 #
 # class HistoryPage(webapp2.RequestHandler):
 #     def get(self)
@@ -132,6 +155,7 @@ class displayPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
+    ('/firstpage', firstPage)
     # ('/history', HistoryPage)
 ], debug=True)
 # get_api_key()
