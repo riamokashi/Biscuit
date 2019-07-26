@@ -59,7 +59,7 @@ button {
   border: inherit;
   border-color: inherit;
   background-color: inherit;
-
-
-
+}
+.logout {
+  float: left;
 }

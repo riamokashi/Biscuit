@@ -22,10 +22,6 @@ h1{
   font: 'Montserrat', sans-serif; 45px;
 }
 
-
-
-
-
 .history{
   background-color: blue;
   text-align: left;
@@ -54,8 +50,10 @@ h1{
   background-color: white;
   shape-inside: .container;
 }
-.logout{
-  position: fixed;
+.a{
+  display: block;
+  background-color: white;
+  shape-inside: footer;
 }
 footer{
   display: block;
