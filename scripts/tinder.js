@@ -20,10 +20,9 @@ function checkKey(e) {
    else if (e.keyCode == '39') {
     let previousDogUrl = currentDog.src;
     currentDog.src = dogPicUrls.pop();
-    var newDiv = document.createElement("div");
-    dogHistoryContainer.appendChild();
-
-
+    var newImg = document.createElement("img");
+    newImg.src = previousDogUrl;
+    dogHistoryContainer.appendChild(newImg);
    }
 }
 
