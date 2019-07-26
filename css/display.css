@@ -75,3 +75,6 @@ footer{
   width: 100%;
   text-align: center;
 }
+.hidden-images{
+  display: none;
+}

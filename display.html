@@ -17,13 +17,12 @@
     <div class="header">
     <header>
       <h1>Biscuit</h1>
-      {% for pic in photos %}
-      <img src="{{pic}}">
-      {% endfor %}
+      <img class="current-dog-img" src="">
       <br>
     </header>
   </div>
-  <div class="container">
+<button type="button" name="button"class="love-button">i loooove this dog</button>
+<div class="container">
     <div class="history">
       <div class="hisstory">
       <text> <bold> History <bold>
@@ -35,8 +34,10 @@
             <img src="https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi846Pw8tDjAhVVBs0KHbTdCcYQjRx6BAgBEAU&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fdog%2F&psig=AOvVaw2upB0HMkz_9Nn01zORFJmO&ust=1564172526995006" alt="doggie">
           </div>
           <div class="containertxt">
-            <ul> Lorem ipsum dolor sit amet, consectetur <br>
-             Lorem ipsum dolor sit amet, consectetur </ul>
+            {% for right in all_right %}
+
+            {% endfor %}
+            <ul> Lorem ipsum dolor sit amet, consectetur </ul>
           </div>
       </div>
     </div>
@@ -46,9 +47,16 @@
     </div>
   </div>
   <footer>
-
-      <div class="fulllog"> <a href="{{logout_url}}">Log Out</a> </div>
+    <input class="logout" type="button" name="template">
+    <a href="'/aboutus'">About The Team</a>
   </footer>
+  <div class="hidden-images">
+    <ul>
+      {% for pic in photos %}
+        <li class="dogpic">{{pic}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+<script type="text/javascript" src="scripts/tinder.js"></script>
 </body>
-
 </html>
