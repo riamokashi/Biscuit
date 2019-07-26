@@ -1,7 +1,7 @@
 
 const hiddenDiv = document.querySelector('.hidden-images');
 const dogPicLis = hiddenDiv.querySelectorAll('.dogpic');
-
+document.onkeydown = checkKey;
 let dogPicUrls = [];
 
 for (i = 0; i < dogPicLis.length; i++) {
@@ -11,7 +11,22 @@ for (i = 0; i < dogPicLis.length; i++) {
 let currentDog = document.querySelector(".current-dog-img");
 currentDog.src = dogPicUrls.pop();
 
-const keyClick = document.querySelector('.love-button');
-keyClick.addEventListener('click', (event) => {
-  currentDog.src = dogPicUrls.pop();
-});
+function checkKey(e) {
+   e = e || window.event;
+   if (e.keyCode == '37') {
+     currentDog.src = dogPicUrls.pop();
+   }
+   else if (e.keyCode == '39') {
+     currentDog.src = dogPicUrls.pop();
+   }
+}
+
+// const keyClick = document.querySelector('.love-button');
+//     keyClick.addEventListener('keypress', (event) => {
+//       console.log(event)
+//       // currentDog.src = dogPicUrls.pop();
+//     });
+
+// keyClick.addEventListener('keypress', (event) => {
+//   currentDog.src = dogPicUrls.pop();
+// });

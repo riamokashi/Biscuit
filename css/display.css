@@ -42,8 +42,8 @@ h1{
   height: 100%;
   min-width: 830px;
 }
-.containerpic{
-  align-items: center;
+.love-button{
+  shape-inside: .container;
 }
 .doggoboxo {
   text-align: left;
