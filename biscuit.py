@@ -8,32 +8,32 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from datetime import datetime, timedelta
 #
-CONFIG_API_TOKEN_KEY = 'api_key'
-CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
+# CONFIG_API_TOKEN_KEY = 'api_key'
+# CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
 API_TOKEN_URL = 'https://api.petfinder.com/v2/oauth2/token'
-TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
+# TOKEN_EXPIRATION_MILLIS = 55*60*1000  # 55 minutes * 60 seconds * 1000 milliseconds
 #
 
 def get_or_remake_api_token():
     payload = urllib.urlencode({
     'grant_type': 'client_credentials',
     'contentType': 'application/x-www-form-urlencoded',
-    'client_id': 'STzlFwjWT9V7OifJPLNE0W5sCMgeQfAS9WMMgmDHQ7rANPSmuO',
-    'client_secret': 'gizrCSqTsn8qo2590HbklQ5yGDfOivPUgjwt3iN4',
+    'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
+    'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
     })
     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
     response_json = json.loads(api_response)
     api_token  = response_json['access_token']
     print("API token refreshed: %s" % api_token)
     return api_token
-
-def get_api_token(requestHandler):
-    token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
-    if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
-        token = refresh_api_token()
-        requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
-        requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
-    return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
+#
+# def get_api_token(requestHandler):
+#     token_birthdate = requestHandler.app.config.get(CONFIG_API_TOKEN_BIRTHDAY_KEY)
+#     if token_birthdate < datetime.now() - timedelta(milliseconds=TOKEN_EXPIRATION_MILLIS):
+#         token = refresh_api_token()
+#         requestHandler.app.config.update({CONFIG_API_TOKEN_KEY: token})
+#         requestHandler.app.config.update({CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()})
+#     return requestHandler.app.config.get(CONFIG_API_TOKEN_KEY)
 
 class BiscuitUser(ndb.Model):
     first_name = ndb.StringProperty()
@@ -104,7 +104,7 @@ class displayPage(webapp2.RequestHandler):
             print("USER NICKNAME! " + user.nickname())
             biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
-            api_token = config["CONFIG_API_TOKEN_KEY"]
+            api_token = get_or_remake_api_token()
             print("displayPage is using api_token:" + api_token)
             headers = {
                 "Authorization" : "Bearer {token}".format(token=api_token)
@@ -116,7 +116,6 @@ class displayPage(webapp2.RequestHandler):
                 api_url = "https://api.petfinder.com/v2/animals?" + queryString
                 api_response = urlfetch.fetch(api_url, headers=headers).content
                 api_response_json = json.loads(api_response)
-                print("API RESPONSE: " + api_response)
                 for animal in api_response_json['animals']:
                     if(len(animal['photos']) > 0):
                         data_dict['photos'].append(animal['photos'][0]['large'])
@@ -129,12 +128,12 @@ class displayPage(webapp2.RequestHandler):
             self.response.write(display_template.render(data_dict))
             # queryString = "type=dog"
             # print('api_url: ' + api_url)
+            # print("API TOKEN: " + API_TOKEN)
 
-class aboutTheTeam(webapp2.RequestHandler):
-    def get(self):
-        print("working")
-        about_template = jinja_current_dir.get_template("aboutus.html")
-        self.response.write(about_template.render())
+
+
+
+
             # print("API RESPONSE JSON: " + str(api_response_json))
             # missing_photos = []
             # print("animals length is: " + str(len(api_response_json['animals'])))
@@ -149,16 +148,18 @@ class aboutTheTeam(webapp2.RequestHandler):
 # class HistoryPage(webapp2.RequestHandler):
 #     def get(self)
 
-config = {
-    "CONFIG_API_TOKEN_KEY": get_or_remake_api_token(),
-    "CONFIG_API_TOKEN_BIRTHDAY_KEY": datetime.now()
-}
+# config = {
+#     CONFIG_API_TOKEN_KEY: refresh_api_token(),
+#     CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
+# }
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
-    ('/firstpage', firstPage),
-    ('/aboutus', aboutTheTeam)
+    ('/firstpage', firstPage)
+    # ('/history', HistoryPage)
 ], debug=True)
+# get_api_key()
+# refresh_api_token(get_api_key, 3500)
 
 #meme generator for reference
 # import webapp2
