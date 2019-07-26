@@ -132,6 +132,8 @@ class displayPage(webapp2.RequestHandler):
 class aboutTheTeam(webapp2.RequestHandler):
     def get(self):
         print("working")
+        about_template = jinja_current_dir.get_template("aboutus.html")
+        self.response.write(about_template.render())
             # print("API RESPONSE JSON: " + str(api_response_json))
             # missing_photos = []
             # print("animals length is: " + str(len(api_response_json['animals'])))

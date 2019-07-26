@@ -11,13 +11,16 @@ for (i = 0; i < dogPicLis.length; i++) {
 let currentDog = document.querySelector(".current-dog-img");
 currentDog.src = dogPicUrls.pop();
 
+let dogHistoryContainer = document.querySelector(".history");
+
 function checkKey(e) {
    e = e || window.event;
    if (e.keyCode == '37') {
      currentDog.src = dogPicUrls.pop();
    }
    else if (e.keyCode == '39') {
-     currentDog.src = dogPicUrls.pop();
+    let likedDogUrl = dogPicUrls.pop();
+    currentDog.src = likedDogUrl
    }
 }
 
