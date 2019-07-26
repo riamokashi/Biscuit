@@ -21,22 +21,32 @@ h1{
 .text{
   font: 'Montserrat', sans-serif; 45px;
 }
-
 .history{
   background-color: blue;
-  text-align: left;
-  color: orange;
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 25px;
+  font-style: normal;
+  font-family: sans-serif;
+  color: black;
   width: 30%;
   float: left;
   height: calc(100vh - 100px);
 }
+.hisstory{
+  font-size: 50px;
+}
 .container{
-  background-color: green;
+  background-color: red;
   overflow: auto;
   height: 100%;
   min-width: 830px;
 }
+.containerpic{
+  align-items: center;
+}
 .doggoboxo {
+  text-align: left;
   display: block;
   flex: auto;
   background-color: yellow;
@@ -50,11 +60,15 @@ h1{
   background-color: white;
   shape-inside: .container;
 }
-.fulllog{
+.fulllog a{
   display: block;
   width: 100%;
   background-color: yellow;
-  font-stretch: : 'Montserrat', sans-serif; 10px;
+  font-family: 'Helvetica', sans-serif;
+  color: black;
+  font-size: 25px;
+  font-style: normal;
+  text-decoration: none;
 }
 footer{
   display: block;
