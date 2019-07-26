@@ -18,8 +18,8 @@ def get_or_remake_api_token():
     payload = urllib.urlencode({
     'grant_type': 'client_credentials',
     'contentType': 'application/x-www-form-urlencoded',
-    'client_id': 'MgcUlr1bnMFdFp18OhqhHaaUarax408IGKeQNCeeWG3FeCiHVM',
-    'client_secret': 'wu9uGytjSbQsPUj3uv6vNvj1gwolHDqvgyQoQjkU',
+    'client_id': 'STzlFwjWT9V7OifJPLNE0W5sCMgeQfAS9WMMgmDHQ7rANPSmuO',
+    'client_secret': 'gizrCSqTsn8qo2590HbklQ5yGDfOivPUgjwt3iN4',
     })
     api_response = urlfetch.fetch(API_TOKEN_URL, method=urlfetch.POST, payload=payload).content
     response_json = json.loads(api_response)
@@ -104,7 +104,7 @@ class displayPage(webapp2.RequestHandler):
             print("USER NICKNAME! " + user.nickname())
             biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
-            api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU0NzhlNGNhYTIyZWFmMmZlMDQ1MDMyMWI5MzE3YjZlNGRlMTkzYjQxZDI3YTg0YmYwODNjZTIwZTI3MmI2ZTY1MGE5NGJkMjZiNzE1MjQ2In0.eyJhdWQiOiJTVHpsRndqV1Q5VjdPaWZKUExORTBXNXNDTWdlUWZBUzlXTU1nbURIUTdyQU5QU211TyIsImp0aSI6ImU0NzhlNGNhYTIyZWFmMmZlMDQ1MDMyMWI5MzE3YjZlNGRlMTkzYjQxZDI3YTg0YmYwODNjZTIwZTI3MmI2ZTY1MGE5NGJkMjZiNzE1MjQ2IiwiaWF0IjoxNTY0MTY3NjIwLCJuYmYiOjE1NjQxNjc2MjAsImV4cCI6MTU2NDE3MTIyMCwic3ViIjoiIiwic2NvcGVzIjpbXX0.TOmY9GcccoPaWNVrBBxmqPH1QGSHPZzAGfxcWBcX3jzaf44gE1w8710uIJDMHZOyNTvAervj9vhMWiUCJ34MS4eP_62D9SXmGLazogc6JCuVfpXvWAEctpU-myBDYsr2fDZ_Vk3d_e2jvPVTwXV8npz6PkDbrwqNbGxyvXk5mWMzt9SiHLAZ5MHjYKa7NyhjnVr8v939BCwteSokPs8AxLOltMaQyDkZukIRPfZAjdmzf04Si0sG3VH3gQtmF_3Kf7VI2Une1TtWtenMViJ_5CIi9Sul7MK8qRv4iBIs9MaiROphoEUfg3loqN1DyGd-DLm_dN9wghATNf9FfYRDMw"
+            api_token = config["CONFIG_API_TOKEN_KEY"]
             print("displayPage is using api_token:" + api_token)
             headers = {
                 "Authorization" : "Bearer {token}".format(token=api_token)
@@ -129,7 +129,7 @@ class displayPage(webapp2.RequestHandler):
             self.response.write(display_template.render(data_dict))
             # queryString = "type=dog"
             # print('api_url: ' + api_url)
-            
+
 class aboutTheTeam(webapp2.RequestHandler):
     def get(self):
         print("working")
@@ -150,8 +150,8 @@ class aboutTheTeam(webapp2.RequestHandler):
 #     def get(self)
 
 config = {
-    CONFIG_API_TOKEN_KEY: get_or_remake_api_token(),
-    CONFIG_API_TOKEN_BIRTHDAY_KEY: datetime.now()
+    "CONFIG_API_TOKEN_KEY": get_or_remake_api_token(),
+    "CONFIG_API_TOKEN_BIRTHDAY_KEY": datetime.now()
 }
 app = webapp2.WSGIApplication([
     ('/', loginPage ),

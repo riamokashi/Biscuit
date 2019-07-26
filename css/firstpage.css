@@ -1,0 +1,12 @@
+header{
+  text-align: center;
+  height: 100px;
+}
+h1{
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  text-shadow: white;
+  font-size: 125px;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-shadow: 2px 2px #ff0000;
