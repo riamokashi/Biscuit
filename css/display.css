@@ -50,12 +50,14 @@ h1{
   background-color: white;
   shape-inside: .container;
 }
-.a{
+.fulllog{
   display: block;
-  background-color: white;
-  shape-inside: footer;
+  width: 100%;
+  background-color: yellow;
+  font-stretch: : 'Montserrat', sans-serif; 10px;
 }
 footer{
   display: block;
   width: 100%;
+  text-align: center;
 }

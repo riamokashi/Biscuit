@@ -49,9 +49,10 @@ h1 {
   background-color: inherit;
   background-attachment: scroll;
 }
-a{
-  color: inherit;
-  border-radius: 1px
+logout_url {
+  display: block;
+  background-color: green;
+  shape-inside: footer;
 }
 button {
   font-weight: normal;
@@ -60,6 +61,7 @@ button {
   border-color: inherit;
   background-color: inherit;
 }
+
 .logout {
   float: left;
 }
