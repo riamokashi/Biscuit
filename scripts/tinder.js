@@ -8,9 +8,8 @@ for (i = 0; i < dogPicLis.length; i++) {
   dogPicUrls.push(dogPicLis[i].innerText);
 }
 
-let currentDog = document.querySelector(".current-dog-img");
+let currentDog = document.querySelector(".images");
 currentDog.src = dogPicUrls.pop();
-
 let dogHistoryContainer = document.querySelector(".history");
 
 function checkKey(e) {
@@ -19,8 +18,12 @@ function checkKey(e) {
      currentDog.src = dogPicUrls.pop();
    }
    else if (e.keyCode == '39') {
-    let likedDogUrl = dogPicUrls.pop();
-    currentDog.src = likedDogUrl
+    let previousDogUrl = currentDog.src;
+    currentDog.src = dogPicUrls.pop();
+    var newDiv = document.createElement("div");
+    dogHistoryContainer.appendChild();
+
+
    }
 }
 
