@@ -17,8 +17,6 @@ h1{
   width: 70%;
   float: right;
   height: calc(100vh - 100px);
-  display: inline-flex;
-  image-resolution: 25%;
 }
 .text{
   font: 'Montserrat', sans-serif; 45px;
@@ -34,19 +32,19 @@ h1{
   width: 30%;
   float: left;
   height: calc(100vh - 100px);
-  shape-outside: rectangle(.dogpic)
 }
 .hisstory{
+  font-family:'Montserrat light'
   font-size: 50px;
 }
 .container{
-  background-color: blue;
+  background-color: red;
   overflow: auto;
   height: 100%;
   min-width: 830px;
 }
-.love-button{
-  shape-inside: .container;
+.containerpic{
+  align-items: center;
 }
 .doggoboxo {
   text-align: left;
@@ -54,7 +52,10 @@ h1{
   flex: auto;
   background-color: yellow;
   shape-inside: .container;
-  shape-image-threshold: .history;
+}
+.history img {
+  max-height: 50px;
+  max-width: 50px;
 }
 #borderimg {
   border-image: url(border.png) 30 round;
@@ -78,12 +79,4 @@ footer{
   display: block;
   width: 100%;
   text-align: center;
-}
-.hidden-images{
-  display: none;
-}
-.dogpic{
-  shape-inside: rectangle(.history);
-  scroll-behavior: smooth;
-  image-resolution: 10%;
 }
