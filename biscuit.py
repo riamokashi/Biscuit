@@ -49,8 +49,8 @@ class firstPage(webapp2.RequestHandler):
         else:
             print("loginPage.get user doesn't exist")
             login_url = users.create_login_url('/')
-            login_button = '<a href="%s">Sign In</a>'  % login_url
-            self.response.write("Please Log in<br>" + login_button)
+            login_button = '<a href="%s" class="signIn">Sign In</a>'  % login_url
+            self.response.write(login_button)
             first_template = jinja_current_dir.get_template("firstPage.html")
             self.response.write(first_template.render())
 class loginPage(webapp2.RequestHandler):
@@ -149,8 +149,8 @@ config = {
 app = webapp2.WSGIApplication([
     ('/', loginPage ),
     ('/dogs', displayPage),
-    ('/firstpage', firstPage)
-    # ('/history', HistoryPage)
+    ('/firstpage', firstPage),
+    ('/aboutus', aboutTheTeam)
 ], debug=True)
 # get_api_key()
 # refresh_api_token(get_api_key, 3500)

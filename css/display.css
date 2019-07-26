@@ -8,12 +8,12 @@ h1{
   font-size: 125px;
   padding-top: 0;
   padding-bottom: 0;
+  text-shadow: 5px 5px #b6fff4;
 }
 .doggo{
   float: right;
 }
 .images{
-  background-color: red;
   width: 70%;
   float: right;
   height: calc(100vh - 100px);
@@ -22,7 +22,6 @@ h1{
   font: 'Montserrat', sans-serif; 45px;
 }
 .history{
-  background-color: blue;
   text-align: center;
   padding-bottom: 10px;
   font-size: 25px;
@@ -33,12 +32,11 @@ h1{
   float: left;
   height: calc(100vh - 100px);
 }
-.hisstory{
-  font-family:'Montserrat light'
-  font-size: 50px;
+.hisstory text {
+  font-size: 75px;
+  text-align: center;
 }
 .container{
-  background-color: red;
   overflow: auto;
   height: 100%;
   min-width: 830px;
@@ -50,12 +48,12 @@ h1{
   text-align: left;
   display: block;
   flex: auto;
-  background-color: yellow;
   shape-inside: .container;
 }
 .history img {
   max-height: 50px;
   max-width: 50px;
+  border: 5px groove black;
 }
 #borderimg {
   border-image: url(border.png) 30 round;
@@ -68,7 +66,6 @@ h1{
 .fulllog a{
   display: block;
   width: 100%;
-  background-color: yellow;
   font-family: 'Helvetica', sans-serif;
   color: black;
   font-size: 25px;
@@ -87,4 +84,11 @@ footer{
   shape-inside: rectangle(.history);
   scroll-behavior: smooth;
   image-resolution: 10%;
+}
+.containertxt{
+  font: 'Montserrat', sans-serif; 25px;;
+  text-align: center;
+}
+body{
+  background-color: lightpink;
 }
