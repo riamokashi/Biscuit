@@ -43,8 +43,11 @@ h1{
 .doggoboxo {
   display: block;
   flex: auto;
-  background-color: white;
+  background-color: yellow;
   shape-inside: .container;
+}
+#borderimg {
+  border-image: url(border.png) 30 round;
 }
 .box2{
   display: block;
