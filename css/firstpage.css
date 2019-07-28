@@ -7,21 +7,30 @@ h1{
   text-align: center;
   text-shadow: white;
   font-size: 125px;
-  background-color: lightpink;
 }
 h2{
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   text-shadow: white;
   font-size: 100px;
-  background-color: lightpink;
 }
 body{
-  background-image: url("https://i.pinimg.com/originals/8f/2f/d5/8f2fd5c5ece2d2c1e668fde7d3d39a3e.jpg");
+  text-align: center;
+  background-color: lightpink;
+  background-image: url(http://u.cubeupload.com/marcuxbrown/FIXEDVERSION.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
 }
 .signIn{
-  font-family: 'Montserrat', sans-serif;
+  font-size: 50px;
+  font-family: sans-serif;
   text-align: center;
-  text-shadow: white;
-  font-size: 125px;
-}
+  color: black;
+  font-weight: bolder;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #feb6e5;
+  font-stretch: expanded;
+  color: inherit;

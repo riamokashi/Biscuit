@@ -26,6 +26,7 @@ function checkKey(e) {
    }
 }
 
+
 // const keyClick = document.querySelector('.love-button');
 //     keyClick.addEventListener('keypress', (event) => {
 //       console.log(event)
