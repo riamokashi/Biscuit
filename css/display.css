@@ -9,7 +9,7 @@ h1{
   font-size: 125px;
   padding-top: 0;
   padding-bottom: 0;
-  text-shadow: 10px 10px #b6fff4; 
+  text-shadow: 10px 10px #b6fff4;
 }
 .doggo{
   float: right;
@@ -104,8 +104,7 @@ footer{
   font: 'Montserrat', sans-serif; 25px;;
   text-align: center;
 }
-body{
-  background-color: lightpink;
+body{  
   background-image: url(http://u.cubeupload.com/marcuxbrown/FIXEDVERSION.png);
   background-size: cover;
 }
