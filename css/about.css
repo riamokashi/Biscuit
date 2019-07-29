@@ -28,7 +28,8 @@ h3{
 }
 .intros{
   font-family: sans-serif;
-  background-color: #FEB6E6
+  font-size: 24px;
+  padding: 10;
 }
 .colors{
   background-image: url(http://u.cubeupload.com/marcuxbrown/FIXEDVERSION.png);
@@ -46,4 +47,56 @@ h3{
   text-decoration: none;
   font-family: sans-serif;
   font-weight: bold;
+}
+.ul {
+  display: flex;
+}
+.captionOne {
+  display: flex;
+  text-align: left;
+  background-color: #FDB6E6;
+  background-size: contain;
+  padding-right: 10px;
+}
+.captionOne text{
+  background-color: lightpink;
+}
+.captionOne img {
+  display: flex;
+  padding-right: 10px;
+  height: 300px;
+  width: 300px;
+}
+img.center {
+  height: 500px;
+  width: auto;
+}
+.captionTwo {
+  display: flex;
+  text-align: left;
+  background-color: #FDB6E6;
+  background-size: contain;
+  padding-right: 10px;
+}
+.captionTwo img {
+  display: flex;
+  padding-right: 10px;
+  height: 300px;
+  width: 300px;
+}
+.captionThree  {
+  display: flex;
+  text-align: left;
+  background-color: #FDB6E6;
+  background-size: contain;
+  padding-right: 10px;
+}
+.captionThree text {
+  background-color: #FDB6E6;
+}
+.captionThree img {
+  display: flex;
+  padding-right: 10px;
+  height: 300px;
+  width: auto;
 }
