@@ -7,6 +7,8 @@ import json
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from datetime import datetime, timedelta
+
+DOG_KEY = ndb.Key('dog_key','something')
 #
 # CONFIG_API_TOKEN_KEY = 'api_key'
 # CONFIG_API_TOKEN_BIRTHDAY_KEY = 'api_key_birthdate'
@@ -62,7 +64,7 @@ class loginPage(webapp2.RequestHandler):
             print("loginPage.get user exists")
             email_address = user.nickname()
             logout_url = users.create_logout_url('/')
-            existing_user = BiscuitUser.query().filter(BiscuitUser.email == email_address).get()
+            existing_user = BiscuitUser.query(ancestor=DOG_KEY).filter(BiscuitUser.email == email_address).get()
             if existing_user:
                 self.redirect('/dogs')
             else:
@@ -77,6 +79,7 @@ class loginPage(webapp2.RequestHandler):
         if user:
             print("loginPage.post creating biscuituser")
             biscuit_user = BiscuitUser(
+                parent = DOG_KEY,
                 first_name=self.request.get('first_name'),
                 age = self.request.get('Age'),
                 breed= self.request.get('Breed'),
@@ -94,7 +97,7 @@ class displayPage(webapp2.RequestHandler):
         user = users.get_current_user()
         if user:
             print("USER NICKNAME! " + user.nickname())
-            biscuit_user = BiscuitUser.query().filter(BiscuitUser.email == user.nickname()).get()
+            biscuit_user = BiscuitUser.query(ancestor=DOG_KEY).filter(BiscuitUser.email == user.nickname()).get()
             print("BISCUIT USER: "+ str(biscuit_user))
             api_token = config["CONFIG_API_TOKEN_KEY"]
             print("displayPage is using api_token:" + api_token)
