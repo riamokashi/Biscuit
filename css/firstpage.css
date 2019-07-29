@@ -16,7 +16,6 @@ h2{
 }
 body{
   text-align: center;
-  background-color: lightpink;
   background-image: url(http://u.cubeupload.com/marcuxbrown/FIXEDVERSION.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -32,5 +31,6 @@ body{
   text-decoration: none;
   display: inline-block;
   background-color: #feb6e5;
+
   font-stretch: expanded;
   color: inherit;
