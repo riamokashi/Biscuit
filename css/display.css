@@ -104,7 +104,21 @@ footer{
   font: 'Montserrat', sans-serif; 25px;;
   text-align: center;
 }
-body{  
+body{
   background-image: url(http://u.cubeupload.com/marcuxbrown/FIXEDVERSION.png);
   background-size: cover;
+}
+p{
+  background-color: #b6e5fe;
+}
+.adopt{
+  display: block;
+  width: 100%;
+  font-family: 'Montserrat';
+  font-weight: .500;
+  color: black;
+  font-size: 25px;
+  font-style: normal;
+  text-decoration: none;
+  background-color:#c3ffd8;
 }

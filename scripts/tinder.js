@@ -23,6 +23,7 @@ function checkKey(e) {
     var newImg = document.createElement("img");
     newImg.src = previousDogUrl;
     dogHistoryContainer.appendChild(newImg);
+    newImg = window.getSelection();
    }
 }
 

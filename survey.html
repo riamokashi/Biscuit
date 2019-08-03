@@ -28,19 +28,10 @@
         <option value="young">Young</option>
         <option value="adult">Adult</option>
         <option value="senior">Senior</option>
-        <option value="noprefrence">No Prefrence</option>
     </select>
     <br>
     <br>
 
-    <label for 'breed' id="breed">Breed</label><br />
-    <select breed="breed">
-      {% for breed in breeds %}
-      <option value='{{breed}}'>{{breed}}</option>
-      {% endfor %}
-      <option value='no_prefrence'>{{breed}}</option>
-    </select>
-    <br>
 
     <br>
     <label for 'size' id="size">Size</label><br />
@@ -57,11 +48,9 @@
     <select name="Gender">
       <option value="male">Male</option>
       <option value="female">Female</option>
-      <option value="no_prefrence">No Prefrence</option>
     </select>
     <br>
     <br>
-    <!-- <a href="dogs"><img src="https://cdn140.picsart.com/271212939016211.png?r240x240" Check out your matches!</a> -->
     <input type="submit" name="template" value="Check out your matches!">
 
   </form>
